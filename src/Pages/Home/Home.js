@@ -15,7 +15,7 @@ const Home = () => {
         <FourCate />
         <BestSeller />
         <div className="bg-[#F2F3F5]">
-          <div className="container mx-auto font-Poppins py-16 px-3 lg:px-0">
+          <div className="lg:w-[60%] mx-auto font-Poppins py-16 px-3 lg:px-0">
             <div className="mb-16">
               <h1 className="text-3xl text-black tracking-wide font-Josefin">
                 What Our{" "}
@@ -29,7 +29,7 @@ const Home = () => {
           </div>
         </div>
 
-        <div className="container mx-auto py-28">
+        <div className="lg:w-[60%] mx-auto py-28">
           <Subscription />
         </div>
 

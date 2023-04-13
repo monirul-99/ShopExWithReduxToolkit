@@ -41,9 +41,7 @@ export default function CommentsCard() {
                 <p className="duration-300 transition-all leading-loose text-sm text-gray-500 hover:text-white">
                   “Once you have collected testimonials, be sure to get from
                   customers before using their feedback publicly. You can then
-                  use, other marketing channels to showcase the positive of your
-                  customers and build trust with potential customers collected
-                  testimonials”.
+                  use, other marketing channels to showcase of your customers”.
                 </p>
 
                 <div className="flex items-center mt-6">

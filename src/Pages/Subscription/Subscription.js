@@ -5,11 +5,10 @@ import "swiper/css/pagination";
 import "swiper/css/navigation";
 import { Autoplay, Pagination, Navigation } from "swiper";
 
-import img1 from "../images/Banners/1.png";
-import img2 from "../images/Banners/2.png";
-import img3 from "../images/Banners/3.png";
-import img4 from "../images/Banners/4.png";
-import img5 from "../images/Banners/5.png";
+import img1 from "../images/Banners/Optimized-1.png";
+import img2 from "../images/Banners/Optimized-2.png";
+import img3 from "../images/Banners/Optimized-3.png";
+import img4 from "../images/Banners/Optimized-4.png";
 
 export default function Subscription() {
   const progressCircle = useRef(null);
