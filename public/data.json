@@ -1,0 +1,222 @@
+[
+    {
+        "productsId": 2,
+        "title": "leather female bag",
+        "img": "https://res.cloudinary.com/dr4o1qswz/image/upload/v1679807564/Clothes/pngwing.com_12_g7h2zr.png",
+        "price": 16,
+        "OriginalPrice": 21,
+        "describe": "A product description is the marketing copy that explains what a product is and why it's worth purchasing. The purpose of a product description is to supply customers with important information about the features and key benefits of the product so they're compelled to buy.",
+        "status": "available",
+        "bestSeller": false
+        },
+    {
+        "productsId": 4,
+        "title": "Black Formal",
+        "img": "https://res.cloudinary.com/dr4o1qswz/image/upload/v1679807563/Clothes/pngwing.com_14_lksm0f.png",
+        "price": 66,
+        "OriginalPrice": 99,
+        "describe": "A product description is the marketing copy that explains what a product is and why it's worth purchasing. The purpose of a product description is to supply customers with important information about the features and key benefits of the product so they're compelled to buy.",
+        "status": "available",
+        "bestSeller": false
+        },
+    {
+        "productsId": 1,
+        "title": "Hot Night Dress",
+        "img": "https://res.cloudinary.com/dr4o1qswz/image/upload/v1679807563/Clothes/pngwing.com_13_v6wh7w.png",
+        "price": 12,
+        "OriginalPrice": 15,
+        "describe": "A product description is the marketing copy that explains what a product is and why it's worth purchasing. The purpose of a product description is to supply customers with important information about the features and key benefits of the product so they're compelled to buy.",
+        "status": "available",
+        "bestSeller": false
+        },
+    {
+        "productsId": 2,
+        "title": "Pink Hot Bag",
+        "img": "https://res.cloudinary.com/dr4o1qswz/image/upload/v1679807563/Clothes/pngwing.com_8_oezayf.png",
+        "price": 50,
+        "OriginalPrice": 80,
+        "describe": "A product description is the marketing copy that explains what a product is and why it's worth purchasing. The purpose of a product description is to supply customers with important information about the features and key benefits of the product so they're compelled to buy.",
+        "status": "available",
+        "bestSeller": true
+        },
+    {
+        "productsId": 1,
+        "title": "Pink Short Dress",
+        "img": "https://res.cloudinary.com/dr4o1qswz/image/upload/v1679807563/Clothes/pngwing.com_7_auktaq.png",
+        "price": 60,
+        "OriginalPrice": 90,
+        "describe": "A product description is the marketing copy that explains what a product is and why it's worth purchasing. The purpose of a product description is to supply customers with important information about the features and key benefits of the product so they're compelled to buy.",
+        "status": "available",
+        "bestSeller": true
+        },
+    {
+        "productsId": 2,
+        "title": "Red stylish bag ",
+        "img": "https://res.cloudinary.com/dr4o1qswz/image/upload/v1679807563/Clothes/pngwing.com_9_uodqpg.png",
+        "price": 60,
+        "OriginalPrice": 90,
+        "describe": "A product description is the marketing copy that explains what a product is and why it's worth purchasing. The purpose of a product description is to supply customers with important information about the features and key benefits of the product so they're compelled to buy.",
+        "status": "available",
+        "bestSeller": true
+        },
+    {
+        "productsId": 1,
+        "title": "Yellow Summer Dress",
+        "img": "https://res.cloudinary.com/dr4o1qswz/image/upload/v1679807563/Clothes/pngwing.com_2_hv6eog.png",
+        "price": 23,
+        "OriginalPrice": 29,
+        "describe": "A product description is the marketing copy that explains what a product is and why it's worth purchasing. The purpose of a product description is to supply customers with important information about the features and key benefits of the product so they're compelled to buy.",
+        "status": "available",
+        "bestSeller": false
+        },
+    {
+        "productsId": 2,
+        "title": "Navy Blue Gorgeous bag",
+        "img": "https://res.cloudinary.com/dr4o1qswz/image/upload/v1679807563/Clothes/pngwing.com_11_r5d7ku.png",
+        "price": 30,
+        "OriginalPrice": 35,
+        "describe": "A product description is the marketing copy that explains what a product is and why it's worth purchasing. The purpose of a product description is to supply customers with important information about the features and key benefits of the product so they're compelled to buy.",
+        "status": "available",
+        "bestSeller": true
+        },
+    {
+        "productsId": 3,
+        "title": "Simple Summer Dress",
+        "img": "https://res.cloudinary.com/dr4o1qswz/image/upload/v1679807563/Clothes/pngwing.com_6_ofrtxz.png",
+        "price": 55,
+        "OriginalPrice": 59,
+        "describe": "A product description is the marketing copy that explains what a product is and why it's worth purchasing. The purpose of a product description is to supply customers with important information about the features and key benefits of the product so they're compelled to buy.",
+        "status": "available",
+        "bestSeller": false
+        },
+    {
+        "productsId": 3,
+        "title": "Red Queen Cute",
+        "img": "https://res.cloudinary.com/dr4o1qswz/image/upload/v1679807562/Clothes/pngwing.com_5_lpunis.png",
+        "price": 88,
+        "OriginalPrice": 95,
+        "describe": "A product description is the marketing copy that explains what a product is and why it's worth purchasing. The purpose of a product description is to supply customers with important information about the features and key benefits of the product so they're compelled to buy.",
+        "status": "available",
+        "bestSeller": true
+        },
+    {
+        "productsId": 2,
+        "title": "Black Side Bag",
+        "img": "https://res.cloudinary.com/dr4o1qswz/image/upload/v1679807562/Clothes/pngwing.com_10_l6yfep.png",
+        "price": 23,
+        "OriginalPrice": 25,
+        "describe": "A product description is the marketing copy that explains what a product is and why it's worth purchasing. The purpose of a product description is to supply customers with important information about the features and key benefits of the product so they're compelled to buy.",
+        "status": "available",
+        "bestSeller": false
+        },
+    {
+        "productsId": 4,
+        "title": "Simple Shirt",
+        "img": "https://res.cloudinary.com/dr4o1qswz/image/upload/v1679807562/Clothes/pngwing.com_21_udk3tl.png",
+        "price": 5,
+        "OriginalPrice": 7,
+        "describe": "A product description is the marketing copy that explains what a product is and why it's worth purchasing. The purpose of a product description is to supply customers with important information about the features and key benefits of the product so they're compelled to buy.",
+        "status": "available",
+        "bestSeller": false
+        },
+    {
+        "productsId": 3,
+        "title": "Stylish Queen Dress",
+        "img": "https://res.cloudinary.com/dr4o1qswz/image/upload/v1679807561/Clothes/pngwing.com_4_h8dkpk.png",
+        "price": 72,
+        "OriginalPrice": 79,
+        "describe": "A product description is the marketing copy that explains what a product is and why it's worth purchasing. The purpose of a product description is to supply customers with important information about the features and key benefits of the product so they're compelled to buy.",
+        "status": "available",
+        "bestSeller": true
+        },
+    {
+        "productsId": 3,
+        "title": "white queen Dress",
+        "img": "https://res.cloudinary.com/dr4o1qswz/image/upload/v1679807561/Clothes/pngwing.com_3_uzdz0t.png",
+        "price": 44,
+        "OriginalPrice": 47,
+        "describe": "A product description is the marketing copy that explains what a product is and why it's worth purchasing. The purpose of a product description is to supply customers with important information about the features and key benefits of the product so they're compelled to buy.",
+        "status": "available",
+        "bestSeller": false
+        },
+    {
+        "productsId": 3,
+        "title": "Pink Cute Dress",
+        "img": "https://res.cloudinary.com/dr4o1qswz/image/upload/v1679807561/Clothes/pngwing.com_1_e4osq4.png",
+        "price": 64,
+        "OriginalPrice": 90,
+        "describe": "A product description is the marketing copy that explains what a product is and why it's worth purchasing. The purpose of a product description is to supply customers with important information about the features and key benefits of the product so they're compelled to buy.",
+        "status": "available",
+        "bestSeller": true
+        },
+    {
+        "productsId": 3,
+        "title": "baby Nice Dress",
+        "img": "https://res.cloudinary.com/dr4o1qswz/image/upload/v1679807560/Clothes/pngwing.com_zchppy.png",
+        "price": 23,
+        "OriginalPrice": 25,
+        "describe": "A product description is the marketing copy that explains what a product is and why it's worth purchasing. The purpose of a product description is to supply customers with important information about the features and key benefits of the product so they're compelled to buy.",
+        "status": "available",
+        "bestSeller": false
+        },
+    {
+        "productsId": 4,
+        "title": "Hot Summer Dress",
+        "img": "https://res.cloudinary.com/dr4o1qswz/image/upload/v1679807560/Clothes/pngwing.com_20_lybdkv.png",
+        "price": 8,
+        "OriginalPrice": 10,
+        "describe": "A product description is the marketing copy that explains what a product is and why it's worth purchasing. The purpose of a product description is to supply customers with important information about the features and key benefits of the product so they're compelled to buy.",
+        "status": "available",
+        "bestSeller": false
+        },
+    {
+        "productsId": 4,
+        "title": "Navy Blue T-Shirt",
+        "img": "https://res.cloudinary.com/dr4o1qswz/image/upload/v1679807559/Clothes/pngwing.com_19_jrjsrv.png",
+        "price": 15,
+        "OriginalPrice": 19,
+        "describe": "A product description is the marketing copy that explains what a product is and why it's worth purchasing. The purpose of a product description is to supply customers with important information about the features and key benefits of the product so they're compelled to buy.",
+        "status": "available",
+        "bestSeller": false
+        },
+    {
+        "productsId": 4,
+        "title": "Stylish winter hoodie",
+        "img": "https://res.cloudinary.com/dr4o1qswz/image/upload/v1679807558/Clothes/pngwing.com_18_i58nug.png",
+        "price": 34,
+        "OriginalPrice": 40,
+        "describe": "A product description is the marketing copy that explains what a product is and why it's worth purchasing. The purpose of a product description is to supply customers with important information about the features and key benefits of the product so they're compelled to buy.",
+        "status": "available",
+        "bestSeller": false
+        },
+    {
+        "productsId": 4,
+        "title": "Winter Match Hoodie",
+        "img": "https://res.cloudinary.com/dr4o1qswz/image/upload/v1679807558/Clothes/pngwing.com_17_dwvwot.png",
+        "price": 60,
+        "OriginalPrice": 90,
+        "describe": "A product description is the marketing copy that explains what a product is and why it's worth purchasing. The purpose of a product description is to supply customers with important information about the features and key benefits of the product so they're compelled to buy.",
+        "status": "available",
+        "bestSeller": true
+        },
+    {
+        "productsId": 4,
+        "title": "Navy Blue Shirt",
+        "img": "https://res.cloudinary.com/dr4o1qswz/image/upload/v1679807558/Clothes/pngwing.com_16_ifiszd.png",
+        "price": 45,
+        "OriginalPrice": 50,
+        "describe": "A product description is the marketing copy that explains what a product is and why it's worth purchasing. The purpose of a product description is to supply customers with important information about the features and key benefits of the product so they're compelled to buy.",
+        "status": "available",
+        "bestSeller": false
+        },
+    {
+        "productsId": 4,
+        "title": "Formal White T-Shirt",
+        "img": "https://res.cloudinary.com/dr4o1qswz/image/upload/v1679807558/Clothes/pngwing.com_15_klso7d.png",
+        "price": 25,
+        "OriginalPrice": 30,
+        "describe": "A product description is the marketing copy that explains what a product is and why it's worth purchasing. The purpose of a product description is to supply customers with important information about the features and key benefits of the product so they're compelled to buy.",
+        "status": "available",
+        "bestSeller": false
+        }
+]
