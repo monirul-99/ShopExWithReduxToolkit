@@ -113,7 +113,7 @@ const BestSeller = () => {
                 leaveTo="opacity-0 scale-95"
               >
                 <Dialog.Panel className="w-full max-w-3xl transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
-                  <div className="grid grid-cols-2 justify-between gap-5">
+                  <div className="grid lg:grid-cols-2 justify-between gap-5">
                     <aside className="flex items-center justify-center h-[375px]">
                       <img className="w-4/5" src={modalData.image} alt="" />
                     </aside>
@@ -166,51 +166,104 @@ const BestSeller = () => {
                         </p>
                       </div>
 
-                      <h1 className="text-3xl py-3 text-[#F14705]">
+                      <h1 className="hidden lg:block md:block text-3xl py-3 text-[#F14705]">
                         ${modalData.price}
                       </h1>
-                      <hr className="py-2" />
-                      <div className="flex items-center gap-5">
-                        <div className="flex items-center gap-3">
+                      <hr className="lg:py-2 mt-2 lg:mt-0" />
+                      <div className="lg:hidden md:hidden flex flex-col lg:flex-row items-center gap-5">
+                        <div className="flex items-center gap-5">
+                          <h1 className="text-3xl py-3 text-[#F14705]">
+                            ${modalData.price}
+                          </h1>
+
+                          <div className="flex items-center gap-3">
+                            <button
+                              onClick={() => dispatch(quantityDecrease())}
+                              className={`duration-300 bg-gray-200/80 hover:bg-gray-300/95 p-2 rounded-sm ${
+                                modalData.quantity === 0
+                                  ? "cursor-not-allowed"
+                                  : ""
+                              }`}
+                            >
+                              <AiOutlineMinus color="gray " size={20} />
+                            </button>
+
+                            <h1>{modalData?.quantity}</h1>
+
+                            <button
+                              onClick={() => dispatch(quantityIncrease())}
+                              className="duration-300 bg-gray-200/80 hover:bg-gray-300/95 p-2 rounded-sm"
+                            >
+                              <AiOutlinePlus color="gray " size={20} />
+                            </button>
+                          </div>
+                        </div>
+
+                        <div className="flex items-center w-full gap-2">
                           <button
-                            onClick={() => dispatch(quantityDecrease())}
-                            className={`duration-300 bg-gray-200/80 hover:bg-gray-300/95 p-2 rounded-sm ${
-                              modalData.quantity === 0
-                                ? "cursor-not-allowed"
-                                : ""
-                            }`}
+                            type="button"
+                            className="w-full inline-flex justify-center rounded-sm border border-transparent bg-[#D0611E]/80 px-4 py-2 text-sm font-medium text-white hover:bg-[#D0611E]/95 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
+                            onClick={() => {
+                              addToCartList(modalData);
+                            }}
                           >
-                            <AiOutlineMinus color="gray " size={20} />
+                            Add To Card
                           </button>
 
-                          <h1>{modalData?.quantity}</h1>
-
                           <button
-                            onClick={() => dispatch(quantityIncrease())}
-                            className="duration-300 bg-gray-200/80 hover:bg-gray-300/95 p-2 rounded-sm"
+                            type="button"
+                            className="w-full inline-flex justify-center rounded-sm border border-transparent bg-[#26ABD4]/80 px-4 py-2 text-sm font-medium text-white hover:bg-[#26ABD4]/95 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
+                            onClick={() => {
+                              goToCheckoutFunc(modalData._id);
+                            }}
                           >
-                            <AiOutlinePlus color="gray " size={20} />
+                            Buy Now
                           </button>
                         </div>
-                        <button
-                          type="button"
-                          className="inline-flex justify-center rounded-sm border border-transparent bg-[#D0611E]/80 px-4 py-2 text-sm font-medium text-white hover:bg-[#D0611E]/95 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
-                          onClick={() => {
-                            addToCartList(modalData);
-                          }}
-                        >
-                          Add To Card
-                        </button>
+                      </div>
+                      <div className="hidden lg:block md:block">
+                        <div className="flex flex-col lg:flex-row items-center gap-5">
+                          <div className="flex items-center gap-3">
+                            <button
+                              onClick={() => dispatch(quantityDecrease())}
+                              className={`duration-300 bg-gray-200/80 hover:bg-gray-300/95 p-2 rounded-sm ${
+                                modalData.quantity === 0
+                                  ? "cursor-not-allowed"
+                                  : ""
+                              }`}
+                            >
+                              <AiOutlineMinus color="gray " size={20} />
+                            </button>
 
-                        <button
-                          type="button"
-                          className="inline-flex justify-center rounded-sm border border-transparent bg-[#26ABD4]/80 px-4 py-2 text-sm font-medium text-white hover:bg-[#26ABD4]/95 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
-                          onClick={() => {
-                            goToCheckoutFunc(modalData._id);
-                          }}
-                        >
-                          Buy Now
-                        </button>
+                            <h1>{modalData?.quantity}</h1>
+
+                            <button
+                              onClick={() => dispatch(quantityIncrease())}
+                              className="duration-300 bg-gray-200/80 hover:bg-gray-300/95 p-2 rounded-sm"
+                            >
+                              <AiOutlinePlus color="gray " size={20} />
+                            </button>
+                          </div>
+                          <button
+                            type="button"
+                            className="inline-flex justify-center rounded-sm border border-transparent bg-[#D0611E]/80 px-4 py-2 text-sm font-medium text-white hover:bg-[#D0611E]/95 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
+                            onClick={() => {
+                              addToCartList(modalData);
+                            }}
+                          >
+                            Add To Card
+                          </button>
+
+                          <button
+                            type="button"
+                            className="inline-flex justify-center rounded-sm border border-transparent bg-[#26ABD4]/80 px-4 py-2 text-sm font-medium text-white hover:bg-[#26ABD4]/95 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
+                            onClick={() => {
+                              goToCheckoutFunc(modalData._id);
+                            }}
+                          >
+                            Buy Now
+                          </button>
+                        </div>
                       </div>
                     </aside>
                   </div>
