@@ -8,14 +8,14 @@ import {
 } from "../../Features/Products/ProductApi";
 import { useDispatch, useSelector } from "react-redux";
 import { AiOutlineMinus, AiOutlinePlus } from "react-icons/ai";
-import { BsArrowReturnRight, BsInfoCircle } from "react-icons/bs";
+import { BsArrowReturnRight, BsInfoCircle, BsLink45Deg } from "react-icons/bs";
 import {
   addToCart,
   quantityDecrease,
   quantityIncrease,
   quantityZero,
 } from "../../Features/Auth/AuthSlice";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-hot-toast";
 // import { Link } from "react-router-dom";
 
@@ -114,7 +114,7 @@ const BestSeller = () => {
               >
                 <Dialog.Panel className="w-full max-w-3xl transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
                   <div className="grid lg:grid-cols-2 justify-between gap-5">
-                    <aside className="flex items-center justify-center h-[375px]">
+                    <aside className="flex items-center justify-center lg:h-[375px]">
                       <img className="w-4/5" src={modalData.image} alt="" />
                     </aside>
                     <aside className="">
