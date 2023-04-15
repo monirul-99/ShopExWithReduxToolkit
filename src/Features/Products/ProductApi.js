@@ -33,10 +33,23 @@ const ProductApi = APISlice.injectEndpoints({
         body: data,
       }),
     }),
+    AddToCardPost: builder.mutation({
+      query: (data) => ({
+        method: "POST",
+        url: `/api/v1/orders/add-to-cart/list/added`,
+        body: data,
+      }),
+    }),
     OrderSuccessInfo: builder.query({
       query: (id) => ({
         method: "GET",
         url: `/api/v1/orders/payment-products/${id}`,
+      }),
+    }),
+    CartDataGetWithEmail: builder.query({
+      query: (email) => ({
+        method: "GET",
+        url: `/api/v1/orders/cart-data/product/${email}`,
       }),
     }),
   }),
@@ -49,4 +62,6 @@ export const {
   useGetProductsIdQuery,
   useOrderPostMutation,
   useOrderSuccessInfoQuery,
+  useAddToCardPostMutation,
+  useCartDataGetWithEmailQuery,
 } = ProductApi;

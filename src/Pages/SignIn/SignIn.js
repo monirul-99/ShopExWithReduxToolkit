@@ -40,6 +40,7 @@ const SignIn = () => {
           photoURL: res?.payload?.image,
         });
       }
+      navigate(from, { replace: true });
     });
   };
   return (

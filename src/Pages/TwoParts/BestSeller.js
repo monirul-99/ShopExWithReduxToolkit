@@ -2,9 +2,13 @@ import React from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import { Fragment, useState } from "react";
 import BestProductsCard from "./BestProductsCard";
-import { useGetBestProductsQuery } from "../../Features/Products/ProductApi";
+import {
+  useAddToCardPostMutation,
+  useGetBestProductsQuery,
+} from "../../Features/Products/ProductApi";
 import { useDispatch, useSelector } from "react-redux";
 import { AiOutlineMinus, AiOutlinePlus } from "react-icons/ai";
+import { BsArrowReturnRight, BsInfoCircle } from "react-icons/bs";
 import {
   addToCart,
   quantityDecrease,
@@ -26,8 +30,10 @@ const BestSeller = () => {
   const { modalData } = useSelector((state) => state.Auth);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  // console.log(modalData);
+  console.log(modalData);
   const { data } = useGetBestProductsQuery();
+  console.log(data);
+  const [postAddToCart] = useAddToCardPostMutation();
   let [isOpen, setIsOpen] = useState(false);
 
   function closeModal() {
@@ -41,13 +47,22 @@ const BestSeller = () => {
 
   const goToCheckoutFunc = (id) => {
     if (modalData.quantity === 0) {
-      toast.error("please Increase your Quantity!");
+      toast.error("Please Increase Your Product Quantity!");
       return;
     }
     navigate(`/single-payments-page/${id}`);
     closeModal();
   };
-  console.log(modalData.quantity);
+
+  const addToCartList = (mData) => {
+    if (modalData.quantity === 0) {
+      toast.error("Please Increase Your Product Quantity!");
+      return;
+    }
+    postAddToCart(mData);
+    dispatch(addToCart(mData));
+    closeModal();
+  };
   return (
     <>
       <div className="py-28">
@@ -107,27 +122,49 @@ const BestSeller = () => {
                         Product ID:{" "}
                         <span className="text-gray-500">1012775</span>
                       </small>
-                      <h1 className="text-2xl font-semibold text-black mb-3">
+                      <h1 className="text-2xl font-semibold text-black mb-3 border-b pb-1">
                         {modalData.title}
                       </h1>
-
                       {modalData.status === "available" ? (
-                        <p className="text-[#669900] text-sm">in Stock</p>
+                        <p className="">
+                          <span className="text-[#669900] text-sm">
+                            in Stock
+                          </span>
+                        </p>
                       ) : (
-                        <p>Stock Out</p>
+                        <p className="">
+                          <span className="text-[#669900] text-sm">
+                            Stock Out
+                          </span>
+                        </p>
                       )}
-                      <h1 className="">Products Details</h1>
+                      <p className="text-slate-700 tracking-wider text-sm">
+                        Only {modalData?.productQuantity} left
+                      </p>
+                      <div className="flex items-center mt-2">
+                        <h1 className="text-slate-700">Products Details </h1>
+                      </div>
                       <ul className="mb-3 mt-1 ml-3">
                         {fakeList.map((item, inx) => (
-                          <li className="text-[14px] text-[#000000]" key={inx}>
-                            {item}
+                          <li
+                            className="text-[14px] text-[#000000] flex items-center"
+                            key={inx}
+                          >
+                            <p className="">
+                              <BsArrowReturnRight size={15} color="#669900" />
+                            </p>
+                            <p className="ml-2 hover:underline"> {item}</p>
                           </li>
                         ))}
                       </ul>
-
-                      <p className="text-sm hover:underline cursor-pointer text-black">
-                        More Info
-                      </p>
+                      <div className="flex items-center space-x-2 hover:underline">
+                        <p className="text-sm cursor-pointer capitalize text-black duration-200 hover:text-[#059862]">
+                          see details
+                        </p>
+                        <p className="">
+                          <BsInfoCircle color="black" size={14} />
+                        </p>
+                      </div>
 
                       <h1 className="text-3xl py-3 text-[#F14705]">
                         ${modalData.price}
@@ -159,8 +196,7 @@ const BestSeller = () => {
                           type="button"
                           className="inline-flex justify-center rounded-sm border border-transparent bg-[#D0611E]/80 px-4 py-2 text-sm font-medium text-white hover:bg-[#D0611E]/95 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
                           onClick={() => {
-                            closeModal();
-                            dispatch(addToCart(modalData));
+                            addToCartList(modalData);
                           }}
                         >
                           Add To Card

@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Dialog, Transition } from "@headlessui/react";
 import { Fragment, useState } from "react";
 // import useAdmin from "./useAdmin";
@@ -30,6 +30,7 @@ import { logout } from "../Features/Auth/AuthSlice";
 
 const Navbar = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const {
     user: { name, image, email },
     cart,
@@ -59,7 +60,9 @@ const Navbar = () => {
     });
   };
 
-  const sum = cart.reduce((total, newTotal) => total + newTotal.price, 0);
+  const sum = email
+    ? cart.reduce((total, newTotal) => total + newTotal.price, 0)
+    : null;
   return (
     <>
       <section className="bg-black  hidden lg:block relative">

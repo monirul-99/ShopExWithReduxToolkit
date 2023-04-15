@@ -6,11 +6,13 @@ import { useNavigation } from "react-router-dom";
 
 import Spinner from "../../Shared/Spinner";
 // import CheckoutForm from "./CheckoutForm";
-import MyOrders from "../MyOrders/MyOrders";
+import PaymentMyOrders from "../MyOrders/PaymentMyOrders";
+import { useSelector } from "react-redux";
 
 // const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_PK);
 const Payment = () => {
   const navigation = useNavigation();
+  const { modalData, user, cart } = useSelector((state) => state.Auth);
   if (navigation.state === "loading") {
     return <Spinner />;
   }
@@ -48,36 +50,35 @@ const Payment = () => {
         window.location.replace(data.url);
       });
   };
+
   return (
     <>
       <section className="container mx-auto">
-        <div className="grid lg:grid-cols-2 gap-16 py-12">
-          <div className="px-5 lg:px-0">
+        <div className="grid lg:grid-cols-9 gap-16 py-12 items-center">
+          <div className="px-5 lg:px-0 grid col-span-5">
             <aside>
-              <div className="flex items-center mb-7">
-                <h1 className="font-Poppins text-xl lg:text-2xl text-black">
-                  Total Cost Of Products:
+              <div className="mb-7">
+                <h1 className="text-start font-Babes text-2xl bg-gradient-to-r from-black via-pink-500/40  text-transparent bg-clip-text tracking-widest py-5">
+                  Shopping Cart
                 </h1>
-                <span className="font-Poppins font-semibold text-black text-xl lg:text-2xl tracking-wide ml-3">
-                  {/* {price}$ */}
-                </span>
               </div>
               <aside className="">
-                <MyOrders />
+                <PaymentMyOrders />
               </aside>
             </aside>
           </div>
-          <form className="px-5 lg:px-0" onSubmit={pay}>
-            <h1 className="text-center font-Poppins text-2xl text-black tracking-wide py-8">
+          <form className="px-5 grid col-span-4 bg-[#FAFAFA]" onSubmit={pay}>
+            <h1 className="text-start font-Babes text-2xl bg-gradient-to-r from-black via-pink-500/40  text-transparent bg-clip-text tracking-widest py-5">
               Customer Information
             </h1>
             <div className="flex flex-col justify-end">
-              <div className="grid grid-cols-1 gap-6 mt-4 sm:grid-cols-2">
+              <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
                 <div>
                   <label className="text-gray-700" htmlFor="username">
                     Full Name
                   </label>
                   <input
+                    defaultValue={user?.name}
                     id="username"
                     type="text"
                     className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 focus:outline-none focus:ring"
@@ -89,6 +90,7 @@ const Payment = () => {
                     Email Address
                   </label>
                   <input
+                    defaultValue={user?.email}
                     id="emailAddress"
                     type="email"
                     className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 focus:outline-none focus:ring"
@@ -142,8 +144,8 @@ const Payment = () => {
             </div>
 
             <div className="flex justify-end mt-6">
-              <button className="w-full px-8 py-2.5 leading-5 text-white transition-colors duration-300 transform bg-gray-700 rounded-md hover:bg-gray-600 focus:outline-none focus:bg-gray-600">
-                Pay
+              <button className="w-full h-12 font-Poppins duration-300 transition-all bg-gradient-to-r from-[#24A2C9]/60 via-[#24A2C9] to-[#24A2C9]/60 hover:to-[#24A2C9]/95 hover:from-[#24A2C9]/95 text-white  px-4 rounded-full">
+                Pay Now
               </button>
             </div>
           </form>
