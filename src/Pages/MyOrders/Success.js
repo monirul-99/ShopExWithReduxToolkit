@@ -11,10 +11,7 @@ const Success = () => {
 
   const { data, isLoading, isError, error } =
     useOrderSuccessInfoQuery(transactionId);
-
-  const handlePrintClick = () => {
-    window.print();
-  };
+  console.log(data);
   return (
     <div className="p-20">
       <div className="bg-white w-2/6 mx-auto customShadow rounded-md">

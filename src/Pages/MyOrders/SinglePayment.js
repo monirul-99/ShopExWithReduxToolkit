@@ -46,8 +46,8 @@ const SinglePayment = () => {
       quantity: modalData?.quantity,
     };
 
-    console.log(payData);
     OrderPost(payData).then((res) => {
+      console.log(res.data.url);
       window.location.replace(res.data.url);
     });
   };

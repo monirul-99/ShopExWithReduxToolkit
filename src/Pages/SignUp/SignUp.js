@@ -73,7 +73,7 @@ const SignUp = () => {
     setPreview(window.URL.createObjectURL(image));
   };
   return (
-    <div className="h-[80vh] pt-14 bg-[#EFEFEF] flex justify-center items-center">
+    <div className="h-[80vh] pt-14 bg-[#EFEFEF] flex justify-center items-center font-Poppins">
       <div className="flex w-full max-w-4xl mx-auto overflow-hidden bg-white rounded-lg shadow-lg -mt-20">
         <div className="hidden bg-cover lg:block lg:w-1/2" style={styles}></div>
 
