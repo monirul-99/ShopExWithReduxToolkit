@@ -4,11 +4,12 @@ import { RiCloseFill } from "react-icons/ri";
 import "./Orders.css";
 import { useDispatch, useSelector } from "react-redux";
 import {
+  cartQuantityDecrease,
+  cartQuantityIncrease,
   quantityDecrease,
-  quantityIncrease,
 } from "../../Features/Auth/AuthSlice";
 import { AiOutlineMinus, AiOutlinePlus } from "react-icons/ai";
-import { Link } from "react-router-dom";
+import "./Orders.css";
 
 const PaymentOrders = () => {
   const dispatch = useDispatch();
@@ -22,157 +23,138 @@ const PaymentOrders = () => {
   return (
     <>
       <section class="container mx-auto font-Poppins">
-        <div class="flex flex-col mt-6">
-          <div class="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
-            <div class="inline-block min-w-full py-2 align-middle md:px-6 lg:px-8">
-              <div class="overflow-hidden md:rounded-lg">
-                <table class="min-w-full divide-y divide-gray-200">
-                  <thead class="bg-gray-50">
-                    <tr className="text-black">
-                      <th
-                        scope="col"
-                        class="py-3.5 px-4 text-sm font-normal text-left rtl:text-right"
-                      >
-                        <div class="flex items-center gap-x-3">
-                          <span>Products</span>
-                        </div>
-                      </th>
+        <div className="w-full grid grid-cols-5 py-5">
+          <aside class="grid col-span-1 border pl-5 items-center py-4 font-Libre text-black">
+            Products Info
+          </aside>
+          <aside class="grid col-span-1 border justify-center items-center py-4 font-Libre text-black">
+            Product Stock
+          </aside>
+          <aside class="grid col-span-1 border justify-center items-center py-4 font-Libre text-black">
+            Custom Quantity
+          </aside>
+          <aside class="grid col-span-1 border justify-center items-center py-4 font-Libre text-black">
+            Remove Actions
+          </aside>
+          <aside class="grid col-span-1 border justify-center items-center py-4 font-Libre text-black">
+            Product Price
+          </aside>
+        </div>
+        {cart?.map((item, inx) => (
+          <div>
+            <div className="w-full grid grid-cols-5 py-5">
+              <aside class="grid col-span-1 p-1">
+                <div class="inline-flex items-center gap-x-3">
+                  <div class="flex items-center gap-x-2">
+                    <img
+                      class="object-cover w-16 h-16 rounded-full"
+                      src={item?.image}
+                      alt=""
+                    />
+                    <div className="hidden lg:block">
+                      <h2 class="font-medium text-gray-800 font-Libre">
+                        {item?.title}
+                      </h2>
 
-                      <th
-                        scope="col"
-                        class="px-12 py-3.5 text-sm font-normal text-left rtl:text-right"
-                      >
-                        <span>Quantity</span>
-                      </th>
-                      <th
-                        scope="col"
-                        class="px-4 py-3.5 text-sm font-normal text-left rtl:text-right"
-                      >
-                        Actions
-                      </th>
-                      <th
-                        scope="col"
-                        class="px-4 py-3.5 text-sm font-normal text-left rtl:text-right"
-                      >
-                        <span>Total Price</span>
-                      </th>
-                    </tr>
-                  </thead>
-                  <tbody class="bg-white divide-y divide-gray-200">
-                    {cart?.map((item, inx) => (
-                      <tr>
-                        <td class="px-4 py-4 text-sm font-medium text-gray-700 whitespace-nowrap">
-                          <div class="inline-flex items-center gap-x-3">
-                            <div class="flex items-center gap-x-2">
-                              <img
-                                class="object-cover w-16 h-16 rounded-full"
-                                src={item?.image}
-                                alt=""
-                              />
-                              <div>
-                                <h2 class="font-medium text-gray-800">
-                                  {item?.title}
-                                </h2>
-                                <p class="text-sm font-normal text-gray-600 dark:text-gray-400">
-                                  @no_brand
-                                </p>
-                              </div>
-                            </div>
-                          </div>
-                        </td>
-                        <td class="px-12 py-4 text-sm font-medium text-gray-700 whitespace-nowrap">
-                          <div className="flex items-center gap-3">
-                            <button
-                              onClick={() => dispatch(quantityDecrease())}
-                              className={`duration-300 bg-gray-200/80 hover:bg-gray-300/95 p-2 rounded-sm ${
-                                modalData.quantity === 0
-                                  ? "cursor-not-allowed"
-                                  : ""
-                              }`}
-                            >
-                              <AiOutlineMinus color="gray " size={20} />
-                            </button>
+                      <p className="font-Poppins text-sm">@no_brand</p>
+                    </div>
+                  </div>
+                </div>
+              </aside>
+              <aside class="grid col-span-1 justify-center p-1">
+                <aside class="flex items-center space-x-3">
+                  <p className="text-black">Available</p>{" "}
+                  <p className="font-Poppins font-semibold">
+                    {item?.productQuantity}
+                  </p>
+                </aside>
+              </aside>
+              <aside class="grid col-span-1 justify-center p-1">
+                <div className="flex items-center gap-3">
+                  <button
+                    onClick={() => dispatch(cartQuantityDecrease(item._id))}
+                    className={`duration-300 bg-[#F6F6F6] hover:bg-gray-300/95 p-2 rounded-sm ${
+                      item.quantity === 0 ? "cursor-not-allowed" : ""
+                    }`}
+                  >
+                    <AiOutlineMinus color="gray " size={20} />
+                  </button>
 
-                            <h1>{item?.quantity}</h1>
+                  <h1>{item?.quantity}</h1>
 
-                            <button
-                              onClick={() => dispatch(quantityIncrease())}
-                              className="duration-300 bg-gray-200/80 hover:bg-gray-300/95 p-2 rounded-sm"
-                            >
-                              <AiOutlinePlus color="gray " size={20} />
-                            </button>
-                          </div>
-                        </td>
-                        <td class="px-4 py-4 text-sm whitespace-nowrap">
-                          <div class="flex items-center gap-x-6">
-                            <button class="text-gray-500 transition-colors duration-200 hover:text-red-500 focus:outline-none">
-                              <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                fill="none"
-                                viewBox="0 0 24 24"
-                                stroke-width="1.5"
-                                stroke="currentColor"
-                                class="w-5 h-5"
-                              >
-                                <path
-                                  stroke-linecap="round"
-                                  stroke-linejoin="round"
-                                  d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0"
-                                />
-                              </svg>
-                            </button>
-                          </div>
-                        </td>
-                        <td class="px-4 py-4 text-sm text-gray-500 whitespace-nowrap text-center">
-                          {item?.price * item?.quantity}
-                        </td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
+                  <button
+                    onClick={() => dispatch(cartQuantityIncrease(item._id))}
+                    className="duration-300 bg-[#001646]/80 hover:bg-[#001646]/95 p-2 rounded-sm"
+                  >
+                    <AiOutlinePlus color="white" size={20} />
+                  </button>
+                </div>
+              </aside>
+              <aside class="grid col-span-1 justify-center p-1">
+                <div class="flex items-center gap-x-6">
+                  <button class="text-gray-500 transition-colors duration-200 hover:text-red-500 focus:outline-none">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke-width="1.5"
+                      stroke="currentColor"
+                      class="w-5 h-5"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0"
+                      />
+                    </svg>
+                  </button>
+                </div>
+              </aside>
+              <aside class="grid col-span-1 justify-center items-center p-1">
+                ${item?.price * item?.quantity}
+              </aside>
             </div>
+            <p className="h-0.5 bg-gradient-to-r from-white via-slate-800/25 to-white"></p>
           </div>
+        ))}
+
+        <div className="w-full mt-10 flex justify-between gap-10 mb-10">
+          <aside className="border w-full h-20 flex justify-between items-center px-5 border-gray-300">
+            <h1 className="font-Libre text-black">Discount</h1>
+            <h1 className="font-semibold text-black">$11</h1>
+          </aside>
+          <aside className="border w-full h-20 flex justify-between items-center px-5 border-gray-300">
+            <h1 className="font-Libre text-black">Delivery</h1>
+            <h1 className="font-semibold text-black">$05</h1>
+          </aside>
+          <aside className="border w-full h-20 flex justify-between items-center px-5 border-gray-300">
+            <h1 className="font-Libre text-black">Subtotal</h1>
+            <h1 className="font-semibold text-black">${sum}</h1>
+          </aside>
+          <aside className="border w-full h-20 flex justify-between items-center px-5 border-gray-300">
+            <h1 className="font-Libre text-black">Total</h1>
+            <h1 className="font-semibold text-black">${sum + 5 + 11}</h1>
+          </aside>
         </div>
 
-        <div className="border-t  text-black px-10 space-y-3">
-          <aside className="flex justify-between pt-3">
-            <h3>Sub Total</h3>
-            <h3>{sum}</h3>
-          </aside>
-
-          <aside className="flex justify-between">
-            <h3>Shipping</h3>
-            <h3>Free</h3>
-          </aside>
-        </div>
-
-        <div class="flex items-center justify-between mt-6">
-          <Link
-            to="/shop"
-            class="flex items-center px-5 py-2 text-sm text-black capitalize transition-colors duration-200 bg-white border rounded-md gap-x-2 hover:bg-gray-100"
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke-width="1.5"
-              stroke="currentColor"
-              class="w-5 h-5 rtl:-scale-x-100"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                d="M6.75 15.75L3 12m0 0l3.75-3.75M3 12h18"
-              />
-            </svg>
-
-            <span className="">Continue Shopping</span>
-          </Link>
-
-          <aside className="w-36 border flex items-center px-5 py-2 text-sm text-black capitalize transition-colors duration-200 bg-white rounded-md gap-x-2 hover:bg-gray-100">
-            <h3>Total</h3>
-            <h3>{sum}</h3>
+        <div className="mb-10">
+          <p className="text-sm text-black/70">
+            If you have a promotion code, please enter it here:
+          </p>
+          <aside className="flex items-center gap-2 py-5">
+            <input
+              type="text"
+              placeholder="Please enter promo code"
+              className="w-full font-light border outline-none bg-white py-4 pl-2"
+            />
+            <aside className="w-full flex gap-5 justify-end">
+              <button className="bg-[#001646] px-5 py-[17px] text-white w-full">
+                Apply Discount
+              </button>
+              <button className="bg-[#001646] px-5 py-[17px] text-white w-full">
+                Checkout
+              </button>
+            </aside>
           </aside>
         </div>
       </section>

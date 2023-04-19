@@ -54,7 +54,7 @@ const SinglePayment = () => {
   return (
     <>
       <section className="lg:w-[50%] mx-auto  py-10">
-        <div className="space-y-3 border-b pb-3 bg-gradient-to-r from-black/60 via-pink-500 to-red-500/90 text-transparent bg-clip-text">
+        <div className="space-y-3 bg-gradient-to-r from-black/60 via-pink-500 to-red-500/90 text-transparent bg-clip-text">
           <h1
             className={`text-center lg:text-start text-xl lg:text-2xl font-Poppins font-semibold bg-gradient-to-r from-black/60 via-pink-500 to-red-500/90 text-transparent bg-clip-text tracking-widest uppercase`}
           >
@@ -69,6 +69,7 @@ const SinglePayment = () => {
             </span>
           </div>
         </div>
+        <p className="h-0.5 bg-gradient-to-r from-white via-slate-800/25 to-white"></p>
 
         <div className="grid lg:grid-cols-2 items-center gap-16 py-12">
           <div className="px-5 lg:px-0">

@@ -30,9 +30,7 @@ const BestSeller = () => {
   const { modalData } = useSelector((state) => state.Auth);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  console.log(modalData);
   const { data } = useGetBestProductsQuery();
-  console.log(data);
   const [postAddToCart] = useAddToCardPostMutation();
   let [isOpen, setIsOpen] = useState(false);
 
@@ -59,7 +57,7 @@ const BestSeller = () => {
       toast.error("Please Increase Your Product Quantity!");
       return;
     }
-    postAddToCart(mData);
+    postAddToCart({ ...mData, paid: false });
     dispatch(addToCart(mData));
     closeModal();
   };

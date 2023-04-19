@@ -13,9 +13,9 @@ const Success = () => {
     useOrderSuccessInfoQuery(transactionId);
   console.log(data);
   return (
-    <div className="p-20">
-      <div className="bg-white w-2/6 mx-auto customShadow rounded-md">
-        <div className="text-center px-5 pt-10">
+    <div className="lg:p-20 p-3">
+      <div className="bg-white lg:w-2/6 w-full mx-auto customShadow rounded-md">
+        <div className="text-center px-5 pt-10 w-full">
           <h3 className="md:text-2xl font-Poppins text-[#48B57F] text-center">
             Payment Successful
           </h3>
@@ -26,26 +26,31 @@ const Success = () => {
             </div>
           </aside>
 
-          <div className="space-y-5 font-Poppins text-sm px-5 py-10">
-            <h5 className="text-start bg-gradient-to-r from-[#48B57F] via-pink-500  text-transparent bg-clip-text text-2xl">
+          <div className="w-full space-y-5 font-Poppins text-sm px-5 py-10">
+            <h5 className="text-start bg-gradient-to-bl from-slate-900 via-slate-900  text-transparent bg-clip-text lg:text-2xl">
               Congratulation,
               <span className="ml-1">{data?.data?.fullName}</span>
             </h5>
             <aside className="flex items-center justify-between border-b pb-2">
               <p>Email</p>
-              <p className="hover:underline">{data?.data?.email}</p>
+              <p className="hover:underline text-[13px]">{data?.data?.email}</p>
             </aside>
             <aside className="flex items-center justify-between border-b pb-2">
               <p className="">Product Name</p>
-              <p className="hover:underline">{data?.data?.product_name}</p>
+              <p className="hover:underline text-[13px]">
+                {data?.data?.product_name}
+              </p>
             </aside>
             <aside className="flex items-center justify-between border-b pb-2">
               <p className="">Amount paid</p>
               <p className="">${data?.data?.price}</p>
             </aside>
             <aside className="flex items-center justify-between">
-              <p>Transaction ID</p>
-              <p className="hover:underline">{data?.data?.transactionId}</p>
+              <p className="hidden">Transaction ID</p>
+              <p className="text-[13px]">TransactionID</p>
+              <p className="hover:underline text-[13px]">
+                {data?.data?.transactionId}
+              </p>
             </aside>
 
             <aside className="flex gap-5 justify-center">

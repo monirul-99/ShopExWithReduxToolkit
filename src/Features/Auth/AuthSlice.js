@@ -90,12 +90,14 @@ const AuthSlice = createSlice({
     },
     quantityIncrease: (state) => {
       state.modalData.quantity += 1;
+      state.modalData.productQuantity -= 1;
     },
     quantityDecrease: (state) => {
       if (state.modalData.quantity === 0) {
         return;
       }
       state.modalData.quantity -= 1;
+      state.modalData.productQuantity += 1;
     },
     quantityZero: (state) => {
       state.modalData.quantity = 0;
@@ -109,6 +111,20 @@ const AuthSlice = createSlice({
     },
     fetchToCart: (state, { payload }) => {
       state.cart = [...state.cart, payload];
+    },
+    cartQuantityIncrease: (state, { payload }) => {
+      const targetProduct = state.cart.find((item) => item._id === payload);
+      targetProduct.quantity += 1;
+      targetProduct.productQuantity -= 1;
+    },
+    cartQuantityDecrease: (state, { payload }) => {
+      const targetProduct = state.cart.find((item) => item._id === payload);
+      if (targetProduct.quantity === 0) {
+        toast.error("Not Negative Quantity Accept!");
+        return;
+      }
+      targetProduct.quantity -= 1;
+      targetProduct.productQuantity += 1;
     },
   },
   extraReducers: (builder) => {
@@ -199,5 +215,7 @@ export const {
   quantityZero,
   addToCart,
   fetchToCart,
+  cartQuantityIncrease,
+  cartQuantityDecrease,
 } = AuthSlice.actions;
 export default AuthSlice.reducer;

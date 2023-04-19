@@ -633,64 +633,17 @@ const Navbar = () => {
                 </div>
               </div>
 
-              <div className="dropdown dropdown-end cursor-pointer ">
-                <label tabIndex={0} className="relative cursor-pointer">
-                  <IconContext.Provider value={{ size: 23, color: "#ABADAF" }}>
-                    <RiShoppingCartLine />
-                  </IconContext.Provider>
-                  <aside className="absolute -top-2 -right-2 bg-[#2a355c99] w-4 h-4 rounded-full text-white flex items-center justify-center">
-                    <p className="text-[12px]">{cart.length}</p>
-                  </aside>
-                </label>
-
-                <div
-                  data-aos="fade-up"
-                  data-aos-duration="500"
-                  tabIndex={0}
-                  className="dropdown-content menu border-t lg:border-none p-2 shadow bg-white mt-[30px] lg:w-[380px] w-[330px] -mr-3 lg:mr-0 z-40"
-                >
-                  {cart.length === 0 && (
-                    <h1 className="text-red-500 capitalize font-Libre p-5 tracking-wide">
-                      Your cart list is empty !{" "}
-                      <Link
-                        to="/shop"
-                        className="text-sm text-blue-400 underline pl-3"
-                      >
-                        Click to Shop
-                      </Link>
-                    </h1>
-                  )}
-                  {
-                    <>
-                      <div className="w-full pr-12 py-5 px-4">
-                        <div className="flex items-center justify-between">
-                          <h1 className="uppercase font-semibold">Total</h1>
-
-                          <h1>${sum}</h1>
-                        </div>
-
-                        <Link
-                          to="/payments-page"
-                          className="w-full mt-5 group relative inline-block overflow-hidden px-8 py-3 focus:outline-none focus:ring mx-auto"
-                        >
-                          <span className="absolute inset-y-0 left-0 w-[2px] bg-[#1785BF] transition-all group-hover:w-full"></span>
-
-                          <span className="relative text-sm text-center uppercase tracking-widest font-medium text-indigo-600 transition-colors group-hover:text-white flex space-x-2">
-                            Checkout Process
-                            <aside className="absolute right-0">
-                              <IconContext.Provider value={{ size: 20 }}>
-                                <IoArrowForwardOutline />
-                              </IconContext.Provider>
-                            </aside>
-                          </span>
-                        </Link>
-                      </div>
-
-                      <MyOrders />
-                    </>
-                  }
-                </div>
-              </div>
+              <Link
+                to="/payments-page"
+                className="dropdown dropdown-end cursor-pointer "
+              >
+                <IconContext.Provider value={{ size: 23, color: "#ABADAF" }}>
+                  <RiShoppingCartLine />
+                </IconContext.Provider>
+                <aside className="absolute -top-2 -right-2 bg-[#2a355c99] w-4 h-4 rounded-full text-white flex items-center justify-center">
+                  <p className="text-[12px]">{cart.length}</p>
+                </aside>
+              </Link>
               <div className="dropdown dropdown-end cursor-pointer">
                 <label tabIndex={0} className="cursor-pointer">
                   {image ? (
