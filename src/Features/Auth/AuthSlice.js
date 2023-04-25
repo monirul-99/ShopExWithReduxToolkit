@@ -20,6 +20,7 @@ const initialState = {
     quantity: 0,
     email: "",
     productQuantity: "",
+    secretId: "",
   },
   cart: [],
   isLoading: false,
@@ -76,7 +77,7 @@ const AuthSlice = createSlice({
       state.user.email = "";
       state.user.name = "";
       state.user.image = "";
-      state.cart = "";
+      state.cart = [];
     },
     modalInfo: (state, { payload }) => {
       state.modalData._id = payload._id;
@@ -103,11 +104,15 @@ const AuthSlice = createSlice({
       state.modalData.quantity = 0;
     },
     addToCart: (state, { payload }) => {
-      if (state.modalData.quantity === 0) {
+      if (state.modalData.quantity <= 0) {
         toast.error("Please Increase Your Product Quantity!");
         return;
       }
       state.cart = [...state.cart, payload];
+    },
+    addToCartTwo: (state, { payload }) => {
+      state.cart = [...state.cart, payload];
+      toast.success("Product Added Successfully!");
     },
     fetchToCart: (state, { payload }) => {
       state.cart = [...state.cart, payload];
@@ -125,6 +130,10 @@ const AuthSlice = createSlice({
       }
       targetProduct.quantity -= 1;
       targetProduct.productQuantity += 1;
+    },
+    cartProductRemove: (state, { payload }) => {
+      const findProduct = state.cart.filter((item) => item._id !== payload);
+      state.cart = findProduct;
     },
   },
   extraReducers: (builder) => {
@@ -217,5 +226,7 @@ export const {
   fetchToCart,
   cartQuantityIncrease,
   cartQuantityDecrease,
+  cartProductRemove,
+  addToCartTwo,
 } = AuthSlice.actions;
 export default AuthSlice.reducer;

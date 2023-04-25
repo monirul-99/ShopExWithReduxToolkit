@@ -1,4 +1,5 @@
 import React from "react";
+import uniqid from "uniqid";
 import { Dialog, Transition } from "@headlessui/react";
 import { Fragment, useState } from "react";
 import BestProductsCard from "./BestProductsCard";
@@ -27,10 +28,10 @@ const fakeList = [
   "Size: M, L, XL",
 ];
 const BestSeller = () => {
-  const { modalData } = useSelector((state) => state.Auth);
+  const { modalData, cart, user } = useSelector((state) => state.Auth);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { data } = useGetBestProductsQuery();
+  const { data, isLoading } = useGetBestProductsQuery();
   const [postAddToCart] = useAddToCardPostMutation();
   let [isOpen, setIsOpen] = useState(false);
 
@@ -44,6 +45,10 @@ const BestSeller = () => {
   }
 
   const goToCheckoutFunc = (id) => {
+    if (!user?.email) {
+      navigate("/signIn");
+      return;
+    }
     if (modalData.quantity === 0) {
       toast.error("Please Increase Your Product Quantity!");
       return;
@@ -52,13 +57,44 @@ const BestSeller = () => {
     closeModal();
   };
 
-  const addToCartList = (mData) => {
+  const addToCartList = ({
+    _id,
+    title,
+    describe,
+    image,
+    price,
+    productQuantity,
+    status,
+    quantity,
+  }) => {
+    const provideData = {
+      mainId: _id,
+      title,
+      email: user?.email,
+      describe,
+      image,
+      price,
+      productQuantity,
+      status,
+      quantity,
+    };
+    console.log(provideData);
+    let findData = cart?.find((item) => item.title === title);
     if (modalData.quantity === 0) {
       toast.error("Please Increase Your Product Quantity!");
       return;
     }
-    postAddToCart({ ...mData, paid: false });
-    dispatch(addToCart(mData));
+
+    if (findData) {
+      toast.error(`${findData.title} Already added in Cart List`);
+      closeModal();
+      return;
+    }
+
+    postAddToCart({ ...provideData, paid: false }).then((res) =>
+      console.log("Res", res)
+    );
+    dispatch(addToCart({ ...provideData }));
     closeModal();
   };
   return (
@@ -202,7 +238,7 @@ const BestSeller = () => {
                             type="button"
                             className="w-full inline-flex justify-center rounded-sm border border-transparent bg-[#D0611E]/80 px-4 py-2 text-sm font-medium text-white hover:bg-[#D0611E]/95 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
                             onClick={() => {
-                              addToCartList(modalData);
+                              addToCartList({ modalData });
                             }}
                           >
                             Add To Card

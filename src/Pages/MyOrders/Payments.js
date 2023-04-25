@@ -1,66 +1,33 @@
-// import { Elements } from "@stripe/react-stripe-js";
-// import { loadStripe } from "@stripe/stripe-js";
 import React from "react";
-import { toast } from "react-hot-toast";
 import { useNavigation } from "react-router-dom";
-
 import Spinner from "../../Shared/Spinner";
-// import CheckoutForm from "./CheckoutForm";
 import PaymentMyOrders from "../MyOrders/PaymentMyOrders";
-import { useSelector } from "react-redux";
 import "./Orders.css";
+import { useSelector } from "react-redux";
 const Payment = () => {
   const navigation = useNavigation();
-  const { modalData, user, cart } = useSelector((state) => state.Auth);
+  const { cart } = useSelector((state) => state.Auth);
   if (navigation.state === "loading") {
     return <Spinner />;
   }
-
-  const pay = (e) => {
-    e.preventDefault();
-    const form = e.target;
-    const name = form.username.value;
-    const email = form.emailAddress.value;
-    const city = form.city.value;
-    const country = form.country.value;
-    const zipCode = form.zipCode.value;
-    const phone = form.phone.value;
-
-    const payData = {
-      fullName: name,
-      email,
-      city,
-      country,
-      zipCode,
-      phone,
-      // price,
-    };
-
-    fetch(`http://localhost:8000/pay-orders`, {
-      method: "POST",
-      headers: {
-        "content-type": "application/json",
-      },
-      body: JSON.stringify(payData),
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        // toast.success(`${user?.displayName} Order Added & Payment Continue!`);
-        window.location.replace(data.url);
-      });
-  };
 
   return (
     <>
       <section className="container mx-auto">
         <div className="w-full">
           <div className="">
-            <h1 className="text-start font-Babes text-2xl bg-gradient-to-r from-[#001646] via-pink-500/40  text-transparent bg-clip-text tracking-widest lg:py-5">
+            <h1 className="text-start font-Babes text-2xl bg-gradient-to-r from-[#001646] via-pink-500/40  text-transparent bg-clip-text tracking-widest lg:pt-10">
               Shopping Cart
             </h1>
           </div>
           <aside className="">
-            <PaymentMyOrders />
+            {cart?.length <= 0 ? (
+              <h1 className="font-Poppins text-2xl font-light text-center py-5 mb-10">
+                Cart List is empty!
+              </h1>
+            ) : (
+              <PaymentMyOrders />
+            )}
           </aside>
         </div>
       </section>

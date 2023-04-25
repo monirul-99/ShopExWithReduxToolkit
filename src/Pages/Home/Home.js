@@ -29,15 +29,17 @@ const Home = () => {
           </div>
         </div>
 
-        <div className="lg:w-[60%] mx-auto lg:py-28 mb-14 lg:mb-0">
+        {/* <div className="lg:w-[60%] mx-auto lg:py-28 mb-14 lg:mb-0">
           <h1 className="text-3xl text-black tracking-wide font-Josefin py-5 px-3 lg:px-0 md:px-0">
             Limited Time Offer
             <span className="text-blue-600"> Save Big on Clothes!</span>
           </h1>
           <Subscription />
-        </div>
+        </div> */}
 
-        <Blogs />
+        <div className="mt-10">
+          <Blogs />
+        </div>
       </div>
     </>
   );

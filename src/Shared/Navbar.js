@@ -60,9 +60,6 @@ const Navbar = () => {
     });
   };
 
-  const sum = email
-    ? cart.reduce((total, newTotal) => total + newTotal.price, 0)
-    : null;
   return (
     <>
       <section className="bg-black  hidden lg:block relative">

@@ -21,6 +21,7 @@ import SignIn from "../Pages/SignIn/SignIn";
 import SignUp from "../Pages/SignUp/SignUp";
 import WishList from "../Pages/WishList/WishList";
 import SinglePayment from "../Pages/MyOrders/SinglePayment";
+import Failed from "../Pages/MyOrders/Failed";
 export const Router = createBrowserRouter([
   {
     path: "/",
@@ -46,6 +47,10 @@ export const Router = createBrowserRouter([
       {
         path: "/payment/success/",
         element: <Success />,
+      },
+      {
+        path: "/payment/failed",
+        element: <Failed />,
       },
       {
         path: "/shop",

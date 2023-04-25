@@ -33,6 +33,12 @@ const ProductApi = APISlice.injectEndpoints({
         body: data,
       }),
     }),
+    OrderSuccessPayment: builder.mutation({
+      query: (quantity, id) => ({
+        method: "POST",
+        url: `/api/v1/orders/payment/success?quantity=${quantity}&productID=${id}`,
+      }),
+    }),
     AddToCardPost: builder.mutation({
       query: (data) => ({
         method: "POST",
@@ -52,6 +58,12 @@ const ProductApi = APISlice.injectEndpoints({
         url: `/api/v1/orders/cart-data/product/${email}`,
       }),
     }),
+    cartProductRemove: builder.mutation({
+      query: (id) => ({
+        method: "DELETE",
+        url: `/api/v1/orders/cart-data/product/${id}`,
+      }),
+    }),
   }),
 });
 
@@ -64,4 +76,6 @@ export const {
   useOrderSuccessInfoQuery,
   useAddToCardPostMutation,
   useCartDataGetWithEmailQuery,
+  useCartProductRemoveMutation,
+  useOrderSuccessPaymentMutation,
 } = ProductApi;

@@ -1,23 +1,52 @@
 import React from "react";
+import uniqid from "uniqid";
 import { IconContext } from "react-icons";
-import {
-  RiEyeLine,
-  RiHeart2Line,
-  RiHeart3Line,
-  RiShoppingCartLine,
-} from "react-icons/ri";
+import { RiEyeLine, RiHeart2Line, RiShoppingCartLine } from "react-icons/ri";
 import "./BestProducts.css";
-import { useDispatch } from "react-redux";
-import { modalInfo } from "../../Features/Auth/AuthSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { addToCartTwo, modalInfo } from "../../Features/Auth/AuthSlice";
+import { toast } from "react-hot-toast";
+import { useAddToCardPostMutation } from "../../Features/Products/ProductApi";
 
-const BestProductsCard = ({ best, openModal, closeModal, isOpen }) => {
+const BestProductsCard = ({ best, openModal }) => {
   const { title, img, price } = best;
-
+  const { cart, user } = useSelector((state) => state.Auth);
   const dispatch = useDispatch();
+  const [postAddToCart] = useAddToCardPostMutation();
 
   const provideDataToModal = () => {
     dispatch(modalInfo(best));
-    console.log("Hello");
+  };
+
+  const directAddToCart = ({
+    _id,
+    title,
+    describe,
+    img,
+    price,
+    availableQuantity,
+    status,
+  }) => {
+    const provideData = {
+      secretId: uniqid(),
+      title,
+      email: user?.email,
+      describe,
+      image: img,
+      price,
+      productQuantity: availableQuantity,
+      status,
+      quantity: 1,
+    };
+
+    let findData = cart?.find((item) => item._id === _id);
+    if (findData) {
+      toast.error(`${findData.title} Already added in Cart List`);
+      return;
+    }
+
+    postAddToCart({ ...provideData, paid: false });
+    dispatch(addToCartTwo({ ...provideData }));
   };
 
   return (
@@ -54,7 +83,9 @@ const BestProductsCard = ({ best, openModal, closeModal, isOpen }) => {
           <div className="absolute bottom-2 w-full">
             <aside className="flex items-center justify-center space-x-2 visibleCart">
               <div
-                // onClick={() => shoppingBookingTwo(product)}
+                onClick={() => {
+                  directAddToCart(best);
+                }}
                 className="cursor-pointer w-10 h-10 bg-black duration-500 hover:bg-[#797B7E] p-3 rounded-full flex items-center justify-center"
               >
                 <IconContext.Provider value={{ size: 20, color: "white" }}>
