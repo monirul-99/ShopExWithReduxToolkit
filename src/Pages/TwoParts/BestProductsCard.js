@@ -7,12 +7,16 @@ import { useDispatch, useSelector } from "react-redux";
 import { addToCartTwo, modalInfo } from "../../Features/Auth/AuthSlice";
 import { toast } from "react-hot-toast";
 import { useAddToCardPostMutation } from "../../Features/Products/ProductApi";
+import { useCreateWishlistMutation } from "../../Features/Wishlist/WishlistApi";
+import { addLocalWishlist } from "../../Features/Wishlist/WishlistSlice";
 
 const BestProductsCard = ({ best, openModal }) => {
   const { title, img, price } = best;
   const { cart, user } = useSelector((state) => state.Auth);
+  const { wishlist } = useSelector((state) => state.Wish);
   const dispatch = useDispatch();
   const [postAddToCart] = useAddToCardPostMutation();
+  const [postWishlist] = useCreateWishlistMutation();
 
   const provideDataToModal = () => {
     dispatch(modalInfo(best));
@@ -28,7 +32,7 @@ const BestProductsCard = ({ best, openModal }) => {
     status,
   }) => {
     const provideData = {
-      secretId: uniqid(),
+      mainId: _id,
       title,
       email: user?.email,
       describe,
@@ -38,7 +42,7 @@ const BestProductsCard = ({ best, openModal }) => {
       status,
       quantity: 1,
     };
-
+    console.log(provideData);
     let findData = cart?.find((item) => item._id === _id);
     if (findData) {
       toast.error(`${findData.title} Already added in Cart List`);
@@ -47,6 +51,38 @@ const BestProductsCard = ({ best, openModal }) => {
 
     postAddToCart({ ...provideData, paid: false });
     dispatch(addToCartTwo({ ...provideData }));
+  };
+
+  const wishlistAdded = ({
+    title,
+    status,
+    price,
+    img,
+    _id,
+    describe,
+    availableQuantity,
+  }) => {
+    const matchProduct = wishlist.find((item) => item.mainId === _id);
+    if (matchProduct) {
+      toast.error("Already Added!");
+      return;
+    }
+    const mainData = {
+      title,
+      describe,
+      status,
+      price,
+      img,
+      availableQuantity,
+      mainId: _id,
+      email: user?.email,
+    };
+    postWishlist(mainData).then((res) => {
+      if (res?.data?.success) {
+        dispatch(addLocalWishlist(mainData));
+        toast.success("Wishlist added Completed!");
+      }
+    });
   };
 
   return (
@@ -68,7 +104,12 @@ const BestProductsCard = ({ best, openModal }) => {
           />
           <div className="absolute top-3 right-3 visibleText duration-300 cursor-pointer">
             <div className="flex flex-row-reverse">
-              <div className="px-1">
+              <div
+                onClick={() => {
+                  wishlistAdded(best);
+                }}
+                className="px-1"
+              >
                 <IconContext.Provider value={{ size: 23, color: "#ABADAF" }}>
                   <RiHeart2Line />
                 </IconContext.Provider>

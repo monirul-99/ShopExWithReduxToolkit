@@ -22,6 +22,7 @@ import SignUp from "../Pages/SignUp/SignUp";
 import WishList from "../Pages/WishList/WishList";
 import SinglePayment from "../Pages/MyOrders/SinglePayment";
 import Failed from "../Pages/MyOrders/Failed";
+import Wishlist from "../Pages/MyOrders/Wishlist";
 export const Router = createBrowserRouter([
   {
     path: "/",
@@ -77,6 +78,10 @@ export const Router = createBrowserRouter([
       {
         path: "/payments-page",
         element: <Payment />,
+      },
+      {
+        path: "/wishlist-page",
+        element: <Wishlist />,
       },
       {
         path: "/single-payments-page/:id",

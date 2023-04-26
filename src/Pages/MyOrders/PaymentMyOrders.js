@@ -59,7 +59,7 @@ const PaymentOrders = () => {
     const phone = form.phone.value;
 
     const payData = {
-      id: currentId,
+      mainId: currentId,
       fullName: name,
       email,
       city,
@@ -68,6 +68,8 @@ const PaymentOrders = () => {
       phone,
       quantity: currentQuantity,
     };
+
+    console.log(payData);
     paymentSuccess(payData).then((res) => {
       console.log(res);
       window.location.replace(res.data.url);
@@ -102,7 +104,7 @@ const PaymentOrders = () => {
           </aside>
         </div>
         {cart?.map((item, inx) => (
-          <>
+          <section key={inx}>
             <div>
               <div className="w-full grid grid-cols-6 py-5">
                 <aside className="grid col-span-1 p-1">
@@ -332,7 +334,7 @@ const PaymentOrders = () => {
                 </div>
               </Dialog>
             </Transition>
-          </>
+          </section>
         ))}
 
         <div className="w-full mt-10 flex justify-between gap-10 mb-10">

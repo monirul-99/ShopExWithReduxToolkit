@@ -1,9 +1,5 @@
 import React from "react";
-import { Link, useNavigate } from "react-router-dom";
-import { Dialog, Transition } from "@headlessui/react";
-import { Fragment, useState } from "react";
-// import useAdmin from "./useAdmin";
-// import useSeller from "./useSeller";
+import { Link } from "react-router-dom";
 import {
   RiBarChartHorizontalLine,
   RiHeart2Line,
@@ -12,17 +8,10 @@ import {
   RiShoppingCartLine,
   RiUser6Line,
 } from "react-icons/ri";
-import { IoIosArrowDown, IoLogoWindows } from "react-icons/io";
-import {
-  IoArrowForwardOutline,
-  IoLogInOutline,
-  IoPersonAddOutline,
-} from "react-icons/io5";
+import { IoIosArrowDown } from "react-icons/io";
+import { IoLogInOutline, IoPersonAddOutline } from "react-icons/io5";
 import "../Pages/MyOrders/Orders.css";
-import MyOrders from "../Pages/MyOrders/MyOrders";
-import WishList from "../Pages/WishList/WishList";
 import { useDispatch, useSelector } from "react-redux";
-import { FaRegUserCircle } from "react-icons/fa";
 import { IconContext } from "react-icons";
 import { signOut } from "firebase/auth";
 import auth from "../Firebase/Firebase.config";
@@ -30,29 +19,12 @@ import { logout } from "../Features/Auth/AuthSlice";
 
 const Navbar = () => {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
   const {
     user: { name, image, email },
     cart,
   } = useSelector((state) => state.Auth);
-  let [isOpen, setIsOpen] = useState(false);
-  let [isOpenWish, setIsOpenWish] = useState(false);
 
-  function closeModal() {
-    setIsOpen(false);
-  }
-
-  function openModal() {
-    setIsOpen(true);
-  }
-
-  function closeModalWish() {
-    setIsOpenWish(false);
-  }
-
-  function openModalWish() {
-    setIsOpenWish(true);
-  }
+  const { wishlist } = useSelector((state) => state.Wish);
 
   const handleLogout = () => {
     signOut(auth).then(() => {
@@ -599,36 +571,14 @@ const Navbar = () => {
                   <RiSearchLine />
                 </IconContext.Provider>
               </div>
-              <div className="dropdown dropdown-end cursor-pointer ">
-                <label tabIndex={0} className="relative cursor-pointer">
-                  <IconContext.Provider value={{ size: 23, color: "#ABADAF" }}>
-                    <RiHeart2Line />
-                  </IconContext.Provider>
-                  <aside className="absolute -top-2 -right-2 bg-[#2a355c99] w-4 h-4 rounded-full text-white flex items-center justify-center">
-                    <p className="text-[12px]">0</p>
-                  </aside>
-                </label>
-
-                <div
-                  data-aos="fade-up"
-                  data-aos-duration="500"
-                  tabIndex={0}
-                  className="dropdown-content menu border-t lg:border-none p-2 shadow bg-white mt-[30px] lg:w-[380px] w-[330px] -mr-14 lg:mr-0 z-40"
-                >
-                  {
-                    <h1 className="text-red-500 capitalize font-Libre p-5 tracking-wide">
-                      Your wish list is empty !{" "}
-                      <Link
-                        to="/shop"
-                        className="text-sm text-blue-400 underline pl-3"
-                      >
-                        Click to wish
-                      </Link>
-                    </h1>
-                  }
-                  {<WishList />}
-                </div>
-              </div>
+              <Link to="/wishlist-page" className="relative cursor-pointer">
+                <IconContext.Provider value={{ size: 23, color: "#ABADAF" }}>
+                  <RiHeart2Line />
+                </IconContext.Provider>
+                <aside className="absolute -top-2 -right-2 bg-[#2a355c99] w-4 h-4 rounded-full text-white flex items-center justify-center">
+                  <p className="text-[12px]">{wishlist?.length}</p>
+                </aside>
+              </Link>
 
               <Link
                 to="/payments-page"

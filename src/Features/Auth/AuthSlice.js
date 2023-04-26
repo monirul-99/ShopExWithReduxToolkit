@@ -110,6 +110,9 @@ const AuthSlice = createSlice({
       }
       state.cart = [...state.cart, payload];
     },
+    addToCartForWish: (state, { payload }) => {
+      state.cart = [...state.cart, payload];
+    },
     addToCartTwo: (state, { payload }) => {
       state.cart = [...state.cart, payload];
       toast.success("Product Added Successfully!");
@@ -228,5 +231,6 @@ export const {
   cartQuantityDecrease,
   cartProductRemove,
   addToCartTwo,
+  addToCartForWish,
 } = AuthSlice.actions;
 export default AuthSlice.reducer;

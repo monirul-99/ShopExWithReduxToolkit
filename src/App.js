@@ -8,11 +8,15 @@ import { fetchToCart, getUser } from "./Features/Auth/AuthSlice";
 import auth from "./Firebase/Firebase.config";
 import { Router } from "./Router/Routes";
 import { useCartDataGetWithEmailQuery } from "./Features/Products/ProductApi";
+import { useGetWishDataQuery } from "./Features/Wishlist/WishlistApi";
+import { loadWishlist } from "./Features/Wishlist/WishlistSlice";
 function App() {
   const [email, setEmail] = useState(null);
   const dispatch = useDispatch();
 
   const { data } = useCartDataGetWithEmailQuery(email);
+  const { data: newData } = useGetWishDataQuery(email);
+  const wishData = newData?.data;
   const cartData = data?.data;
   useEffect(() => {
     AOS.init({
@@ -25,11 +29,12 @@ function App() {
     onAuthStateChanged(auth, (user) => {
       if (user) {
         dispatch(getUser(user?.email));
+        dispatch(loadWishlist(wishData));
         setEmail(user?.email);
       }
-      cartData?.map((item, inx) => dispatch(fetchToCart(item)));
+      cartData?.map((item) => dispatch(fetchToCart(item)));
     });
-  }, [dispatch, cartData]);
+  }, [dispatch, cartData, wishData]);
 
   return (
     <div className="bg-white font-Josefin">

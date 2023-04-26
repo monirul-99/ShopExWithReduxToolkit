@@ -1,5 +1,4 @@
 import React from "react";
-import uniqid from "uniqid";
 import { Dialog, Transition } from "@headlessui/react";
 import { Fragment, useState } from "react";
 import BestProductsCard from "./BestProductsCard";
@@ -9,16 +8,15 @@ import {
 } from "../../Features/Products/ProductApi";
 import { useDispatch, useSelector } from "react-redux";
 import { AiOutlineMinus, AiOutlinePlus } from "react-icons/ai";
-import { BsArrowReturnRight, BsInfoCircle, BsLink45Deg } from "react-icons/bs";
+import { BsArrowReturnRight, BsInfoCircle } from "react-icons/bs";
 import {
   addToCart,
   quantityDecrease,
   quantityIncrease,
   quantityZero,
 } from "../../Features/Auth/AuthSlice";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { toast } from "react-hot-toast";
-// import { Link } from "react-router-dom";
 
 const fakeList = [
   "Perfect for any Occasion",
@@ -31,7 +29,7 @@ const BestSeller = () => {
   const { modalData, cart, user } = useSelector((state) => state.Auth);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { data, isLoading } = useGetBestProductsQuery();
+  const { data } = useGetBestProductsQuery();
   const [postAddToCart] = useAddToCardPostMutation();
   let [isOpen, setIsOpen] = useState(false);
 
@@ -67,6 +65,11 @@ const BestSeller = () => {
     status,
     quantity,
   }) => {
+    if (!user?.email) {
+      navigate("/signIn");
+      return;
+    }
+
     const provideData = {
       mainId: _id,
       title,

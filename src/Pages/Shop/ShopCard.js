@@ -1,10 +1,77 @@
 import React from "react";
 import { IconContext } from "react-icons";
 import { RiEyeLine, RiHeart3Line, RiShoppingCartLine } from "react-icons/ri";
-// import { IconContext } from "react-icons";
+import { useDispatch, useSelector } from "react-redux";
+import { addToCartTwo, modalInfo } from "../../Features/Auth/AuthSlice";
+import { toast } from "react-hot-toast";
+import { useCreateWishlistMutation } from "../../Features/Wishlist/WishlistApi";
+import { addLocalWishlist } from "../../Features/Wishlist/WishlistSlice";
+import { useAddToCardPostMutation } from "../../Features/Products/ProductApi";
 
-const ShopCard = ({ shop }) => {
+const ShopCard = ({ shop, openModal, closeModal }) => {
   const { title, img, price } = shop;
+  const dispatch = useDispatch();
+  const { user, cart } = useSelector((state) => state.Auth);
+  const { wishlist } = useSelector((state) => state.Wish);
+
+  const [postWishlist] = useCreateWishlistMutation();
+  const [postAddToCart] = useAddToCardPostMutation();
+
+  const provideDataToModal = () => {
+    dispatch(modalInfo(shop));
+  };
+
+  const directAddToCart = ({
+    _id,
+    title,
+    describe,
+    img,
+    price,
+    availableQuantity,
+    status,
+  }) => {
+    const provideData = {
+      mainId: _id,
+      title,
+      email: user?.email,
+      describe,
+      image: img,
+      price,
+      productQuantity: availableQuantity,
+      status,
+      quantity: 1,
+    };
+    let findData = cart?.find((item) => item._id === _id);
+    if (findData) {
+      toast.error(`${findData.title} Already added in Cart List`);
+      return;
+    }
+
+    postAddToCart({ ...provideData, paid: false });
+    dispatch(addToCartTwo({ ...provideData }));
+  };
+
+  const wishlistAdded = ({ title, status, price, img, _id }) => {
+    const matchProduct = wishlist.find((item) => item.mainId === _id);
+    if (matchProduct) {
+      toast.error("Already Added!");
+      return;
+    }
+    const mainData = {
+      title,
+      status,
+      price,
+      img,
+      mainId: _id,
+      email: user?.email,
+    };
+    postWishlist(mainData).then((res) => {
+      if (res?.data?.success) {
+        dispatch(addLocalWishlist(mainData));
+        toast.success("Wishlist added Completed!");
+      }
+    });
+  };
   return (
     <section
       className="border hoverEffect cardHover cursor-pointer"
@@ -21,7 +88,12 @@ const ShopCard = ({ shop }) => {
         />
         <div className="absolute top-3 right-3 visibleText duration-300 cursor-pointer">
           <div className="flex flex-row-reverse">
-            <div className="px-1">
+            <div
+              onClick={() => {
+                wishlistAdded(shop);
+              }}
+              className="px-1 cursor-pointer"
+            >
               <IconContext.Provider value={{ size: 23, color: "#ABADAF" }}>
                 <RiHeart3Line />
               </IconContext.Provider>
@@ -36,7 +108,9 @@ const ShopCard = ({ shop }) => {
         <div className="absolute bottom-2 w-full">
           <aside className="flex items-center justify-center space-x-2 visibleCart">
             <div
-              // onClick={() => shoppingBookingTwo(product)}
+              onClick={() => {
+                directAddToCart(shop);
+              }}
               className="cursor-pointer w-10 h-10 bg-black duration-500 hover:bg-[#797B7E] p-3 rounded-full flex items-center justify-center"
             >
               <IconContext.Provider value={{ size: 20, color: "white" }}>
@@ -44,10 +118,10 @@ const ShopCard = ({ shop }) => {
               </IconContext.Provider>
             </div>
             <label
-              // onClick={() => {
-              //   setCategoriesName(product);
-              //   setModalOpenClose(product);
-              // }}
+              onClick={() => {
+                provideDataToModal();
+                openModal();
+              }}
               htmlFor="my-modal-3"
               className="cursor-pointer w-10 h-10 bg-black duration-500 hover:bg-[#797B7E] p-3 rounded-full flex items-center justify-center"
             >

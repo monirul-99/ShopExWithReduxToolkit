@@ -8,6 +8,9 @@ const Success = () => {
   const location = useLocation();
   const query = new URLSearchParams(location.search);
   const transactionId = query.get("transactionId");
+  if (transactionId) {
+    console.log(transactionId);
+  }
 
   const { data, isLoading, isError, error } =
     useOrderSuccessInfoQuery(transactionId);
@@ -37,13 +40,11 @@ const Success = () => {
             </aside>
             <aside className="flex items-center justify-between border-b pb-2">
               <p className="">Product Name</p>
-              <p className="hover:underline text-[13px]">
-                {data?.data?.product_name}
-              </p>
+              <p className="hover:underline text-[13px]">{data?.data?.title}</p>
             </aside>
             <aside className="flex items-center justify-between border-b pb-2">
               <p className="">Amount paid</p>
-              <p className="">${data?.data?.price}</p>
+              <p className="">${data?.data?.totalPrice}</p>
             </aside>
             <aside className="flex items-center justify-between">
               <p className="hidden">Transaction ID</p>

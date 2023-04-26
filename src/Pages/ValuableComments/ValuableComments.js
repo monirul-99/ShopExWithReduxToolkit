@@ -33,11 +33,8 @@ export default function CommentsCard() {
       >
         <div className="grid grid-cols-1">
           {[...Array(9)].map((item, inx) => (
-            <SwiperSlide>
-              <div
-                key={inx}
-                className="duration-300 transition-all p-6 bg-white hover:bg-[#949393]/40 rounded-lg md:p-8 cursor-default"
-              >
+            <SwiperSlide key={inx}>
+              <div className="duration-300 transition-all p-6 bg-white hover:bg-[#949393]/40 rounded-lg md:p-8 cursor-default">
                 <p className="duration-300 transition-all leading-loose text-sm text-gray-500 hover:text-white">
                   “Once you have collected testimonials, be sure to get from
                   customers before using their feedback publicly. You can then

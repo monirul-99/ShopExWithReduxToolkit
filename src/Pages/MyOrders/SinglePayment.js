@@ -36,9 +36,10 @@ const SinglePayment = () => {
     const phone = form.phone.value;
 
     const payData = {
-      id,
+      mainId: id,
       fullName: name,
       email,
+      title,
       city,
       country,
       zipCode,
@@ -47,7 +48,7 @@ const SinglePayment = () => {
     };
 
     OrderPost(payData).then((res) => {
-      console.log(res.data.url);
+      console.log(res);
       window.location.replace(res.data.url);
     });
   };
