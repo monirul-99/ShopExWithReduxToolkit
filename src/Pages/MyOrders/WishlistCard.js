@@ -10,7 +10,6 @@ import { useAddToCardPostMutation } from "../../Features/Products/ProductApi";
 const WishlistCard = ({ product }) => {
   const { img, price, title, status, _id } = product;
   const { cart, user } = useSelector((state) => state.Auth);
-  const { wishlist } = useSelector((state) => state.Wish);
   const [postAddToCart] = useAddToCardPostMutation();
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -61,7 +60,7 @@ const WishlistCard = ({ product }) => {
 
     postAddToCart({ ...provideData, paid: false }).then((res) => {
       if (res?.data?.data?.acknowledged) {
-        dispatch(addToCartForWish({ ...provideData }));
+        dispatch(addToCartForWish(provideData));
         wishRemove(_id).then((res) => {
           if (res?.data?.data?.acknowledged) {
             dispatch(removeLocalWishlist(_id));
@@ -95,7 +94,7 @@ const WishlistCard = ({ product }) => {
           </aside>
           <aside className="grid col-span-1 justify-center p-1">
             <aside className="flex items-center space-x-3">
-              <p className="font-Poppins font-light text-[#4F938C]">
+              <p className="font-Poppins text-sm font-light text-[#4F938C]">
                 {status === "available" && "in Stock"}
               </p>
             </aside>
@@ -137,7 +136,8 @@ const WishlistCard = ({ product }) => {
               }}
               className="bg-[#001646] px-5 py-[10px] text-white w-full rounded-full text-sm"
             >
-              Add To Cart
+              <span className="hidden lg:block md:block"> Add To Cart</span>
+              <span className="block lg:hidden md:hidden">Cart</span>
             </button>
           </aside>
         </div>

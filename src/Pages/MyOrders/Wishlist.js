@@ -12,22 +12,27 @@ const Wishlist = () => {
       </h1>
 
       <aside>
-        <div className="w-full grid grid-cols-5 py-5">
+        <div className="w-full grid  grid-cols-5 py-5">
           <aside className="grid col-span-1 border pl-5 items-center py-4 font-Libre text-black">
-            Products Info
-          </aside>
-          <aside className="grid col-span-1 border justify-center items-center py-4 font-Libre text-black">
-            Product Stock
+            <span className="hidden lg:block md:block">Products Info</span>
+            <span className="block lg:hidden md:hidden">Image</span>
           </aside>
 
           <aside className="grid col-span-1 border justify-center items-center py-4 font-Libre text-black">
-            Remove Actions
+            <span className="hidden lg:block md:block">Custom Quantity</span>
+            <span className="block lg:hidden md:hidden">Qty</span>
           </aside>
           <aside className="grid col-span-1 border justify-center items-center py-4 font-Libre text-black">
-            Product Price
+            <span className="hidden lg:block md:block"> Remove Actions</span>
+            <span className="block lg:hidden md:hidden">Action</span>
           </aside>
           <aside className="grid col-span-1 border justify-center items-center py-4 font-Libre text-black">
-            Payment
+            <span className="hidden lg:block md:block"> Product Price</span>
+            <span className="block lg:hidden md:hidden"> Price</span>
+          </aside>
+          <aside className="grid col-span-1 border justify-center items-center py-4 font-Libre text-black">
+            <span className="hidden lg:block md:block"> Add To Cart</span>
+            <span className="block lg:hidden md:hidden">Move</span>
           </aside>
         </div>
         {wishlist?.map((product, inx) => (

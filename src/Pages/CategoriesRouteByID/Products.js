@@ -7,10 +7,12 @@ import { toast } from "react-hot-toast";
 import { useCreateWishlistMutation } from "../../Features/Wishlist/WishlistApi";
 import { addLocalWishlist } from "../../Features/Wishlist/WishlistSlice";
 import { useAddToCardPostMutation } from "../../Features/Products/ProductApi";
+import { useNavigate } from "react-router-dom";
 
 const Products = ({ product, openModal, closeModal }) => {
   const { title, img, price } = product;
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const { user, cart } = useSelector((state) => state.Auth);
   const { wishlist } = useSelector((state) => state.Wish);
   const [postWishlist] = useCreateWishlistMutation();
@@ -29,6 +31,10 @@ const Products = ({ product, openModal, closeModal }) => {
     availableQuantity,
     status,
   }) => {
+    if (!user?.email) {
+      navigate("/signIn");
+      return;
+    }
     const provideData = {
       mainId: _id,
       title,
@@ -51,7 +57,18 @@ const Products = ({ product, openModal, closeModal }) => {
     dispatch(addToCartTwo({ ...provideData }));
   };
 
-  const wishlistAdded = ({ title, status, price, img, _id }) => {
+  const wishlistAdded = ({
+    title,
+    status,
+    price,
+    img,
+    _id,
+    availableQuantity,
+  }) => {
+    if (!user?.email) {
+      navigate("/signIn");
+      return;
+    }
     const matchProduct = wishlist.find((item) => item.mainId === _id);
     if (matchProduct) {
       toast.error("Already Added!");
@@ -62,6 +79,7 @@ const Products = ({ product, openModal, closeModal }) => {
       status,
       price,
       img,
+      availableQuantity,
       mainId: _id,
       email: user?.email,
     };

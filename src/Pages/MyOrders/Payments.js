@@ -1,22 +1,34 @@
 import React from "react";
-import { useNavigation } from "react-router-dom";
-import Spinner from "../../Shared/Spinner";
 import PaymentMyOrders from "../MyOrders/PaymentMyOrders";
 import "./Orders.css";
+import Loader from "../images/7YQl.gif";
 import { useSelector } from "react-redux";
+import { useCartDataGetWithEmailQuery } from "../../Features/Products/ProductApi";
+import { toast } from "react-hot-toast";
 const Payment = () => {
-  const navigation = useNavigation();
-  const { cart } = useSelector((state) => state.Auth);
-  if (navigation.state === "loading") {
-    return <Spinner />;
+  const { user } = useSelector((state) => state.Auth);
+  const { data, isLoading, isError, error } = useCartDataGetWithEmailQuery(
+    user?.email
+  );
+  const cart = data?.data;
+  if (isLoading) {
+    return (
+      <div className="flex justify-center items-center">
+        <img src={Loader} alt="" />
+      </div>
+    );
   }
+
+  // if (isError) {
+  //   toast.error(error.message);
+  // }
 
   return (
     <>
       <section className="container mx-auto">
         <div className="w-full">
           <div className="">
-            <h1 className="text-start font-Babes text-2xl bg-gradient-to-r from-[#001646] via-pink-500/40  text-transparent bg-clip-text tracking-widest lg:pt-10">
+            <h1 className="lg:text-start text-center font-Babes text-2xl mt-5 bg-gradient-to-r from-[#001646] via-pink-500/40  text-transparent bg-clip-text tracking-widest lg:pt-10">
               Shopping Cart
             </h1>
           </div>
@@ -26,7 +38,7 @@ const Payment = () => {
                 Cart List is empty!
               </h1>
             ) : (
-              <PaymentMyOrders />
+              <PaymentMyOrders cart={cart} />
             )}
           </aside>
         </div>

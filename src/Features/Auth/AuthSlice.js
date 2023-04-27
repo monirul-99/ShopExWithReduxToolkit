@@ -23,6 +23,7 @@ const initialState = {
     secretId: "",
   },
   cart: [],
+  cartLength: 0,
   isLoading: false,
   isError: false,
   error: "",
@@ -118,6 +119,7 @@ const AuthSlice = createSlice({
       toast.success("Product Added Successfully!");
     },
     fetchToCart: (state, { payload }) => {
+      console.log(payload);
       state.cart = [...state.cart, payload];
     },
     cartQuantityIncrease: (state, { payload }) => {
@@ -137,6 +139,9 @@ const AuthSlice = createSlice({
     cartProductRemove: (state, { payload }) => {
       const findProduct = state.cart.filter((item) => item._id !== payload);
       state.cart = findProduct;
+    },
+    attachCartLength: (state, { payload }) => {
+      state.cartLength = payload;
     },
   },
   extraReducers: (builder) => {
@@ -232,5 +237,6 @@ export const {
   cartProductRemove,
   addToCartTwo,
   addToCartForWish,
+  attachCartLength,
 } = AuthSlice.actions;
 export default AuthSlice.reducer;

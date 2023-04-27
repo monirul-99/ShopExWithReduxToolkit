@@ -45,6 +45,7 @@ const ProductApi = APISlice.injectEndpoints({
         url: `/api/v1/orders/add-to-cart/list/added`,
         body: data,
       }),
+      invalidatesTags: ["cart"],
     }),
     OrderSuccessInfo: builder.query({
       query: (id) => ({
@@ -57,12 +58,14 @@ const ProductApi = APISlice.injectEndpoints({
         method: "GET",
         url: `/api/v1/orders/cart-data/product/${email}`,
       }),
+      providesTags: ["cart", "remove"],
     }),
     cartProductRemove: builder.mutation({
       query: (id) => ({
         method: "DELETE",
         url: `/api/v1/orders/cart-data/product/${id}`,
       }),
+      invalidatesTags: ["remove"],
     }),
   }),
 });

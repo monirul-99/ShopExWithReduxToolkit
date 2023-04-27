@@ -16,9 +16,9 @@ import { toast } from "react-hot-toast";
 import { Dialog, Transition } from "@headlessui/react";
 import Spinner from "../../Shared/Spinner";
 
-const PaymentOrders = () => {
+const PaymentOrders = ({ cart }) => {
   const dispatch = useDispatch();
-  const { cart, user, isLoading } = useSelector((state) => state.Auth);
+  const { user, isLoading } = useSelector((state) => state.Auth);
   let [isOpen, setIsOpen] = useState(false);
   let [currentId, setCurrentId] = useState(null);
   let [currentQuantity, setCurrentQuantity] = useState(null);
@@ -31,7 +31,7 @@ const PaymentOrders = () => {
     setIsOpen(true);
   }
 
-  const sum = cart.reduce(
+  const sum = cart?.reduce(
     (total, newTotal) => total + newTotal.price * newTotal.quantity,
     0
   );
@@ -47,7 +47,6 @@ const PaymentOrders = () => {
   };
 
   const [paymentSuccess] = useOrderPostMutation();
-
   const orderPayments = (e) => {
     e.preventDefault();
     const form = e.target;
@@ -83,30 +82,35 @@ const PaymentOrders = () => {
   return (
     <>
       <section className="container mx-auto font-Poppins">
-        <div className="w-full grid grid-cols-6 py-5">
+        <div className="w-full grid lg:grid-cols-6 grid-cols-5 py-5">
           <aside className="grid col-span-1 border pl-5 items-center py-4 font-Libre text-black">
-            Products Info
+            <span className="hidden lg:block md:block">Products Info</span>
+            <span className="block lg:hidden md:hidden">Image</span>
           </aside>
-          <aside className="grid col-span-1 border justify-center items-center py-4 font-Libre text-black">
+          <aside className="lg:grid md:grid col-span-1 border justify-center items-center py-4 font-Libre text-black hidden lg:block">
             Product Stock
           </aside>
           <aside className="grid col-span-1 border justify-center items-center py-4 font-Libre text-black">
-            Custom Quantity
+            <span className="hidden lg:block md:block">Custom Quantity</span>
+            <span className="block lg:hidden md:hidden">Qty</span>
           </aside>
           <aside className="grid col-span-1 border justify-center items-center py-4 font-Libre text-black">
-            Remove Actions
+            <span className="hidden lg:block md:block"> Remove Actions</span>
+            <span className="block lg:hidden md:hidden">Action</span>
           </aside>
           <aside className="grid col-span-1 border justify-center items-center py-4 font-Libre text-black">
-            Product Price
+            <span className="hidden lg:block md:block"> Product Price</span>
+            <span className="block lg:hidden md:hidden"> Price</span>
           </aside>
           <aside className="grid col-span-1 border justify-center items-center py-4 font-Libre text-black">
-            Payment
+            <span className="hidden lg:block md:block"> Payment</span>
+            <span className="block lg:hidden md:hidden">Pay</span>
           </aside>
         </div>
         {cart?.map((item, inx) => (
           <section key={inx}>
             <div>
-              <div className="w-full grid grid-cols-6 py-5">
+              <div className="w-full grid lg:grid-cols-6 grid-cols-5 py-5">
                 <aside className="grid col-span-1 p-1">
                   <div className="inline-flex items-center gap-x-3">
                     <div className="flex items-center gap-x-2">
@@ -125,7 +129,7 @@ const PaymentOrders = () => {
                     </div>
                   </div>
                 </aside>
-                <aside className="grid col-span-1 justify-center p-1">
+                <aside className="lg:grid md:grid col-span-1 justify-center items-center p-1 hidden lg:block">
                   <aside className="flex items-center space-x-3">
                     <p className="text-black">Available</p>{" "}
                     <p className="font-Poppins font-semibold">
@@ -137,7 +141,7 @@ const PaymentOrders = () => {
                   <div className="flex items-center gap-3">
                     <button
                       onClick={() => dispatch(cartQuantityDecrease(item._id))}
-                      className={`duration-300 bg-[#F6F6F6] hover:bg-gray-300/95 p-2 rounded-sm ${
+                      className={`duration-300 bg-[#F6F6F6] hover:bg-gray-300/95 lg:p-2 p-0.5 rounded-sm ${
                         item.quantity === 0 ? "cursor-not-allowed" : ""
                       }`}
                     >
@@ -148,7 +152,7 @@ const PaymentOrders = () => {
 
                     <button
                       onClick={() => dispatch(cartQuantityIncrease(item?._id))}
-                      className="duration-300 bg-[#001646]/80 hover:bg-[#001646]/95 p-2 rounded-sm"
+                      className="duration-300 bg-[#001646]/80 hover:bg-[#001646]/95 lg:p-2 p-0.5 rounded-sm"
                     >
                       <AiOutlinePlus color="white" size={20} />
                     </button>
@@ -337,16 +341,16 @@ const PaymentOrders = () => {
           </section>
         ))}
 
-        <div className="w-full mt-10 flex justify-between gap-10 mb-10">
-          <aside className="border w-full h-20 flex justify-between items-center px-5 border-gray-300">
+        <div className="w-full mt-10 flex justify-between lg:gap-10 gap-2 mb-10">
+          <aside className="border w-full h-20 flex justify-between items-center lg:px-5 px-1 border-gray-300">
             <h1 className="font-Libre text-black">Delivery</h1>
             <h1 className="font-semibold text-black">$00</h1>
           </aside>
-          <aside className="border w-full h-20 flex justify-between items-center px-5 border-gray-300">
+          <aside className="border w-full h-20 flex justify-between items-center lg:px-5 px-1 border-gray-300">
             <h1 className="font-Libre text-black">Subtotal</h1>
             <h1 className="font-semibold text-black">${sum}</h1>
           </aside>
-          <aside className="border w-full h-20 flex justify-between items-center px-5 border-gray-300">
+          <aside className="border w-full h-20 flex justify-between items-center lg:px-5 px-1 border-gray-300">
             <h1 className="font-Libre text-black">Total</h1>
             <h1 className="font-semibold text-black">${sum}</h1>
           </aside>
