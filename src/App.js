@@ -4,7 +4,7 @@ import { onAuthStateChanged } from "firebase/auth";
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { RouterProvider } from "react-router-dom";
-import { attachCartLength, getUser } from "./Features/Auth/AuthSlice";
+import { productAttachToCart, getUser } from "./Features/Auth/AuthSlice";
 import auth from "./Firebase/Firebase.config";
 import { Router } from "./Router/Routes";
 import { useGetWishDataQuery } from "./Features/Wishlist/WishlistApi";
@@ -17,7 +17,7 @@ function App() {
   const { data: newData } = useGetWishDataQuery(email);
   const { data } = useCartDataGetWithEmailQuery(email);
   const wishData = newData?.data;
-  const dataLength = data?.data?.length;
+  const cartData = data?.data;
   useEffect(() => {
     AOS.init({
       duration: 1200,
@@ -30,11 +30,11 @@ function App() {
       if (user) {
         dispatch(getUser(user?.email));
         dispatch(loadWishlist(wishData));
-        dispatch(attachCartLength(dataLength));
+        dispatch(productAttachToCart(cartData));
         setEmail(user?.email);
       }
     });
-  }, [dispatch, wishData, dataLength]);
+  }, [dispatch, wishData, cartData]);
 
   return (
     <div className="bg-white font-Josefin">

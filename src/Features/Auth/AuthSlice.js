@@ -23,7 +23,6 @@ const initialState = {
     secretId: "",
   },
   cart: [],
-  cartLength: 0,
   isLoading: false,
   isError: false,
   error: "",
@@ -141,8 +140,8 @@ const AuthSlice = createSlice({
       const findProduct = state.cart.filter((item) => item.mainId !== payload);
       state.cart = findProduct;
     },
-    attachCartLength: (state, { payload }) => {
-      state.cartLength = payload;
+    productAttachToCart: (state, { payload }) => {
+      state.cart = payload;
     },
   },
   extraReducers: (builder) => {
@@ -238,6 +237,6 @@ export const {
   cartProductRemove,
   addToCartTwo,
   addToCartForWish,
-  attachCartLength,
+  productAttachToCart,
 } = AuthSlice.actions;
 export default AuthSlice.reducer;

@@ -25,6 +25,7 @@ const WishlistCard = ({ product }) => {
     });
   };
 
+  //wishlist product move to cart & this product remove from wishlist
   const addToCartList = ({
     _id,
     title,
@@ -51,6 +52,7 @@ const WishlistCard = ({ product }) => {
       status,
       quantity: 1,
     };
+
     let findData = cart?.find((item) => item.title === title);
 
     if (findData) {
