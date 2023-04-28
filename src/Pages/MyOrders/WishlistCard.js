@@ -15,8 +15,8 @@ const WishlistCard = ({ product }) => {
   const navigate = useNavigate();
   const [wishRemove] = useWishlistRemoveMutation();
 
+  //wishlist product remove function
   const wishDataRemove = (id) => {
-    console.log(id);
     wishRemove(id).then((res) => {
       if (res?.data?.data?.acknowledged) {
         dispatch(removeLocalWishlist(id));

@@ -137,7 +137,8 @@ const AuthSlice = createSlice({
       targetProduct.productQuantity += 1;
     },
     cartProductRemove: (state, { payload }) => {
-      const findProduct = state.cart.filter((item) => item._id !== payload);
+      console.log("Cart Remove", payload);
+      const findProduct = state.cart.filter((item) => item.mainId !== payload);
       state.cart = findProduct;
     },
     attachCartLength: (state, { payload }) => {

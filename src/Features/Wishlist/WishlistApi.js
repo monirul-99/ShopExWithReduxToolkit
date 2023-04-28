@@ -15,7 +15,7 @@ const WishApi = APISlice.injectEndpoints({
         method: "GET",
         url: `/api/v1/wishlist/${email}`,
       }),
-      providesTags: ["wish"],
+      providesTags: ["wish", "wishRemove"],
     }),
 
     WishlistRemove: builder.mutation({
@@ -23,6 +23,7 @@ const WishApi = APISlice.injectEndpoints({
         method: "DELETE",
         url: `/api/v1/wishlist/${id}`,
       }),
+      invalidatesTags: ["wishRemove"],
     }),
   }),
 });

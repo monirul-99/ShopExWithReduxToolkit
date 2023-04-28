@@ -160,7 +160,7 @@ const PaymentOrders = ({ cart }) => {
                 </aside>
                 <aside
                   onClick={() => {
-                    dispatch(cartProductRemove(item?._id));
+                    // dispatch(cartProductRemove(item?._id));
                     ServerCartDataRemove(item?.mainId);
                   }}
                   className="grid col-span-1 justify-center p-1"
