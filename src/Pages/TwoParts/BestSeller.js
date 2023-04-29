@@ -100,6 +100,10 @@ const BestSeller = () => {
     dispatch(addToCart({ ...provideData }));
     closeModal();
   };
+
+  const productDetails = (infoId) => {
+    navigate(`/categories-search/${infoId}`);
+  };
   return (
     <>
       <div className="py-28">
@@ -194,7 +198,12 @@ const BestSeller = () => {
                           </li>
                         ))}
                       </ul>
-                      <div className="flex items-center space-x-2 hover:underline">
+                      <div
+                        onClick={() => {
+                          productDetails(modalData?._id);
+                        }}
+                        className="flex items-center space-x-2 hover:underline"
+                      >
                         <p className="text-sm cursor-pointer capitalize text-black duration-200 hover:text-[#059862]">
                           see details
                         </p>

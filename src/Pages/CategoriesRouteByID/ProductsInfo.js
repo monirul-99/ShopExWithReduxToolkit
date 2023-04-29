@@ -8,25 +8,12 @@ import {
   RiWhatsappFill,
 } from "react-icons/ri";
 
-import { Link, useLoaderData } from "react-router-dom";
-import { IconContext } from "react-icons";
-
 import Sorted from "./SortItems";
 import SignIn from "../SignIn/SignIn";
+import { useSelector } from "react-redux";
 
 export function ProductsInfo() {
-  const [quantity, setQuantity] = useState(1);
-  const [reviewData, setReviewData] = useState([]);
-
-  const data = useLoaderData();
-  // const { title, condition, price, OriginalPrice, _id, status, describe, img } =
-  //review data request
-  // useEffect(() => {
-  //   fetch(`http://localhost:8000/review-data/${_id}`)
-  //     .then((res) => res.json())
-  //     .then((data) => setReviewData(data));
-  // }, []);
-
+  const { user } = useSelector((state) => state.Auth);
   return (
     <>
       {/* <section className="relative bg-[url(https://res.cloudinary.com/dr4o1qswz/image/upload/v1672635981/Tree%20SHOP/UpdateTree/Untitled-2_e9x6ul.jpg)] bg-cover bg-center bg-no-repeat lg:h-[200px] h-[180px]">
@@ -259,25 +246,25 @@ export function ProductsInfo() {
         <div className="container mx-auto lg:w-[65%] pb-1 lg:mt-16">
           <div className="flex items-center justify-between mt-16 space-x-5 bg-gray-200 h-16">
             <h1 className="text-center lg:text-xl font-Poppins pl-3 text-slate-800">
-              {reviewData.length} Review
+              {/* {reviewData.length} Review */}
             </h1>
             <aside className="flex items-center font-Libre">
               <Sorted />
             </aside>
           </div>
 
-          {/* <div className="mt-7 font-Libre flex items-center space-x-3 px-3 lg:px-0 mb-20">
-            {user?.displayName && (
+          <div className="mt-7 font-Libre flex items-center space-x-3 px-3 lg:px-0 mb-20">
+            {user?.image && (
               <>
                 <div className="avatar">
                   <div className="w-10 h-10 rounded-full ring-2">
-                    <img src={user?.photoURL} alt="" />
+                    <img src={user?.image} alt="" />
                   </div>
                 </div>
 
                 <div className="w-full flex items-center justify-between gap-5">
                   <input
-                    onChange={(e) => setReview(e.target.value)}
+                    // onChange={(e) => setReview(e.target.value)}
                     className="border lg:py-2.5 py-2 w-10/12 rounded-full pl-5 text-sm text-slate-900 bg-gray-100"
                     type="text"
                     placeholder="Write a Public Review"
@@ -285,7 +272,7 @@ export function ProductsInfo() {
 
                   <button
                     onClick={() => {
-                      reviewsBooking(review, _id);
+                      // reviewsBooking(review, _id);
                     }}
                     className="bg-slate-800 text-white px-5 lg:py-2.5 rounded py-2 text-sm"
                   >
@@ -294,7 +281,7 @@ export function ProductsInfo() {
                 </div>
               </>
             )}
-            {!user?.displayName && (
+            {!user?.image && (
               <div className="-mb-10">
                 <p className="text-black">
                   First login complete then review add.
@@ -309,7 +296,7 @@ export function ProductsInfo() {
                 </p>
               </div>
             )}
-          </div> */}
+          </div>
 
           {/* <div className="font-Libre space-y-10 px-3 lg:px-0">
             {reviewData?.map((rData, inx) => (

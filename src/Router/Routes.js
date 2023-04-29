@@ -67,8 +67,6 @@ export const Router = createBrowserRouter([
       },
       {
         path: "/categories-search/:id",
-        loader: ({ params }) =>
-          fetch(`http://localhost:8000/categories-search/${params.id}`),
         element: <ProductsInfo />,
       },
       {
