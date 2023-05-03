@@ -4,13 +4,10 @@ import "./Orders.css";
 import Loader from "../images/7YQl.gif";
 import { useSelector } from "react-redux";
 import { useCartDataGetWithEmailQuery } from "../../Features/Products/ProductApi";
-import { toast } from "react-hot-toast";
 const Payment = () => {
-  const { user } = useSelector((state) => state.Auth);
-  const { data, isLoading, isError, error } = useCartDataGetWithEmailQuery(
-    user?.email
-  );
-  const cart = data?.data;
+  const { user, cart: localData } = useSelector((state) => state.Auth);
+  const { isLoading } = useCartDataGetWithEmailQuery(user?.email);
+  const cart = localData;
   if (isLoading) {
     return (
       <div className="flex justify-center items-center">
@@ -18,10 +15,6 @@ const Payment = () => {
       </div>
     );
   }
-
-  // if (isError) {
-  //   toast.error(error.message);
-  // }
 
   return (
     <>

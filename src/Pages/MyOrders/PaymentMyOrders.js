@@ -131,7 +131,7 @@ const PaymentOrders = ({ cart }) => {
                 </aside>
                 <aside className="lg:grid md:grid col-span-1 justify-center items-center p-1 hidden lg:block">
                   <aside className="flex items-center space-x-3">
-                    <p className="text-black">Available</p>{" "}
+                    <p className="text-black">Available</p>
                     <p className="font-Poppins font-semibold">
                       {item?.productQuantity}
                     </p>

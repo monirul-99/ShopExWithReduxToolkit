@@ -1,15 +1,23 @@
-import React from "react";
-import uniqid from "uniqid";
+import React, { useEffect } from "react";
 import { IconContext } from "react-icons";
-import { RiEyeLine, RiHeart2Line, RiShoppingCartLine } from "react-icons/ri";
+import {
+  RiEyeLine,
+  RiHeart3Fill,
+  RiHeart3Line,
+  RiShoppingCartLine,
+} from "react-icons/ri";
 import "./BestProducts.css";
 import { useDispatch, useSelector } from "react-redux";
 import { addToCartTwo, modalInfo } from "../../Features/Auth/AuthSlice";
 import { toast } from "react-hot-toast";
 import { useAddToCardPostMutation } from "../../Features/Products/ProductApi";
 import { useCreateWishlistMutation } from "../../Features/Wishlist/WishlistApi";
-import { addLocalWishlist } from "../../Features/Wishlist/WishlistSlice";
+import {
+  activeProduct,
+  addLocalWishlist,
+} from "../../Features/Wishlist/WishlistSlice";
 import { useNavigate } from "react-router-dom";
+import Loader from "../images/7YQl.gif";
 
 const BestProductsCard = ({ best, openModal }) => {
   const { title, img, price } = best;
@@ -48,7 +56,6 @@ const BestProductsCard = ({ best, openModal }) => {
       status,
       quantity: 1,
     };
-    console.log(provideData);
     let findData = cart?.find((item) => item._id === _id);
     if (findData) {
       toast.error(`${findData.title} Already added in Cart List`);
@@ -95,6 +102,8 @@ const BestProductsCard = ({ best, openModal }) => {
     });
   };
 
+  const match = wishlist?.find((item) => item.title === title);
+
   return (
     <>
       <section
@@ -112,7 +121,7 @@ const BestProductsCard = ({ best, openModal }) => {
             src={img}
             alt=""
           />
-          <div className="absolute top-3 right-3 visibleText duration-300 cursor-pointer">
+          <div className="absolute top-3 right-3 visibleText duration-300 cursor-pointer font-Poppins">
             <div className="flex flex-row-reverse">
               <div
                 onClick={() => {
@@ -120,14 +129,20 @@ const BestProductsCard = ({ best, openModal }) => {
                 }}
                 className="px-1"
               >
-                <IconContext.Provider value={{ size: 23, color: "#ABADAF" }}>
-                  <RiHeart2Line />
-                </IconContext.Provider>
+                {match?.title && <RiHeart3Fill color="red" size={23} />}
+                {!match?.title && <RiHeart3Line size={23} color="#ABADAF" />}
               </div>
 
-              <p className="bg-white text-xs px-2 py-1 text-black duration-300 extraCss">
-                Add To Wishlist
-              </p>
+              {!match?.title && (
+                <p className="bg-white text-xs px-2 py-1 text-black duration-300 extraCss">
+                  Add To Wishlist
+                </p>
+              )}
+              {match?.title && (
+                <p className="bg-white text-xs px-2 py-1 text-black duration-300 extraCss">
+                  Already Added
+                </p>
+              )}
             </div>
           </div>
 

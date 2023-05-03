@@ -27,6 +27,7 @@ const fakeList = [
 ];
 const BestSeller = () => {
   const { modalData, cart, user } = useSelector((state) => state.Auth);
+  const { wishlist } = useSelector((state) => state.Wish);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { data } = useGetBestProductsQuery();
@@ -104,6 +105,7 @@ const BestSeller = () => {
   const productDetails = (infoId) => {
     navigate(`/categories-search/${infoId}`);
   };
+
   return (
     <>
       <div className="py-28">

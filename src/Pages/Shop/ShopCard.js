@@ -1,6 +1,11 @@
 import React from "react";
 import { IconContext } from "react-icons";
-import { RiEyeLine, RiHeart3Line, RiShoppingCartLine } from "react-icons/ri";
+import {
+  RiEyeLine,
+  RiHeart3Fill,
+  RiHeart3Line,
+  RiShoppingCartLine,
+} from "react-icons/ri";
 import { useDispatch, useSelector } from "react-redux";
 import { addToCartTwo, modalInfo } from "../../Features/Auth/AuthSlice";
 import { toast } from "react-hot-toast";
@@ -91,6 +96,8 @@ const ShopCard = ({ shop, openModal, closeModal }) => {
       }
     });
   };
+
+  const match = wishlist?.find((item) => item.title === title);
   return (
     <section
       className="border hoverEffect cardHover cursor-pointer"
@@ -105,7 +112,7 @@ const ShopCard = ({ shop, openModal, closeModal }) => {
           src={img}
           alt=""
         />
-        <div className="absolute top-3 right-3 visibleText duration-300 cursor-pointer">
+        <div className="absolute top-3 right-3 font-Poppins visibleText duration-300 cursor-pointer">
           <div className="flex flex-row-reverse">
             <div
               onClick={() => {
@@ -113,14 +120,20 @@ const ShopCard = ({ shop, openModal, closeModal }) => {
               }}
               className="px-1 cursor-pointer"
             >
-              <IconContext.Provider value={{ size: 23, color: "#ABADAF" }}>
-                <RiHeart3Line />
-              </IconContext.Provider>
+              {match?.title && <RiHeart3Fill color="red" size={23} />}
+              {!match?.title && <RiHeart3Line size={23} color="#ABADAF" />}
             </div>
 
-            <p className="bg-white text-xs px-2 py-1 text-black duration-300 extraCss">
-              Add To Wishlist
-            </p>
+            {!match?.title && (
+              <p className="bg-white text-xs px-2 py-1 text-black duration-300 extraCss">
+                Add To Wishlist
+              </p>
+            )}
+            {match?.title && (
+              <p className="bg-white text-xs px-2 py-1 text-black duration-300 extraCss">
+                Already Added
+              </p>
+            )}
           </div>
         </div>
 
