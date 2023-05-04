@@ -23,6 +23,7 @@ import WishList from "../Pages/WishList/WishList";
 import SinglePayment from "../Pages/MyOrders/SinglePayment";
 import Failed from "../Pages/MyOrders/Failed";
 import Wishlist from "../Pages/MyOrders/Wishlist";
+import SearchPage from "../Pages/SearchPage/SearchPage";
 export const Router = createBrowserRouter([
   {
     path: "/",
@@ -72,6 +73,10 @@ export const Router = createBrowserRouter([
       {
         path: "/myOrders",
         element: <MyOrders />,
+      },
+      {
+        path: "/search-page",
+        element: <SearchPage />,
       },
       {
         path: "/payments-page",

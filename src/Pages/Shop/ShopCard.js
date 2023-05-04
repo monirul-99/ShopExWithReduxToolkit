@@ -14,7 +14,7 @@ import { addLocalWishlist } from "../../Features/Wishlist/WishlistSlice";
 import { useAddToCardPostMutation } from "../../Features/Products/ProductApi";
 import { useNavigate } from "react-router-dom";
 
-const ShopCard = ({ shop, openModal, closeModal }) => {
+const ShopCard = ({ shop, openModal }) => {
   const { title, img, price } = shop;
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -53,7 +53,7 @@ const ShopCard = ({ shop, openModal, closeModal }) => {
       quantity: 1,
     };
     console.log(provideData);
-    let findData = cart?.find((item) => item._id === _id);
+    let findData = cart?.find((item) => item.title === title);
     if (findData) {
       toast.error(`${findData.title} Already added in Cart List`);
       return;

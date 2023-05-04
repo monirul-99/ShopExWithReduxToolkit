@@ -1,5 +1,5 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import {
   RiBarChartHorizontalLine,
   RiHeart2Line,
@@ -9,22 +9,26 @@ import {
   RiUser6Line,
 } from "react-icons/ri";
 import { IoIosArrowDown } from "react-icons/io";
-import { IoLogInOutline, IoPersonAddOutline } from "react-icons/io5";
+import { IoClose, IoLogInOutline, IoPersonAddOutline } from "react-icons/io5";
 import "../Pages/MyOrders/Orders.css";
 import { useDispatch, useSelector } from "react-redux";
 import { IconContext } from "react-icons";
 import { signOut } from "firebase/auth";
 import auth from "../Firebase/Firebase.config";
 import { logout } from "../Features/Auth/AuthSlice";
+import ShopCard from "../Pages/Shop/ShopCard";
+import { useSearchProductsQuery } from "../Features/Products/ProductApi";
 
 const Navbar = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const {
     user: { name, image, email },
     cart,
   } = useSelector((state) => state.Auth);
 
   const { wishlist } = useSelector((state) => state.Wish);
+  // const { data } = useSearchProductsQuery(searchText);
 
   const handleLogout = () => {
     signOut(auth).then(() => {
@@ -32,6 +36,9 @@ const Navbar = () => {
     });
   };
 
+  const searchPageVisit = () => {
+    navigate("/search-page");
+  };
   return (
     <>
       <section className="bg-black  hidden lg:block relative">
@@ -51,140 +58,6 @@ const Navbar = () => {
           </div>
         </div>
       </section>
-      {/* <div>
-        <aside className="flex gap-10 items-center">
-          {email && (
-            <Link
-              className="font-semibold uppercase hidden lg:block"
-              to="/myOrders"
-            >
-              My Orders
-            </Link>
-          )}
-          {isAdmin && (
-            <Link
-              className="font-semibold uppercase hidden lg:block"
-              to="/dashboard"
-            >
-              Dashboard
-            </Link>
-          )}
-          {isSeller && (
-            <Link
-              className="font-semibold uppercase hidden lg:block"
-              to="/dashboard"
-            >
-              Dashboard
-            </Link>
-          )}
-          {!email && (
-            <>
-              <Link
-                className="font-semibold uppercase hidden lg:block"
-                to="/signIn"
-              >
-                Sign In
-              </Link>
-              <Link
-                className="font-semibold uppercase hidden lg:block"
-                to="/signUP"
-              >
-                Sign Up
-              </Link>
-            </>
-          )}
-          {email && (
-            <Link
-              // onClick={logout}
-              className="font-semibold uppercase hidden lg:block"
-            >
-              Sign Out
-            </Link>
-          )}
-
-          <div className="dropdown">
-            <label tabIndex={0} className="btn btn-ghost btn-circle lg:hidden">
-              <IconContext.Provider value={{ size: 35 }}>
-                <IoLogoWindows />
-              </IconContext.Provider>
-            </label>
-            <ul
-              tabIndex={0}
-              className="font-Ubuntu space-y-3 uppercase menu menu-compact dropdown-content mt-9 p-2 shadow bg-gray-200  rounded-box w-36 -ml-[310px]"
-            >
-              <li className="font-semibold">
-                <Link to="/home">HOME</Link>
-              </li>
-              <li className="font-semibold">
-                <Link to="/shop">SHOP</Link>
-              </li>
-              <li className="font-semibold">
-                <Link to="/blog">BLOG</Link>
-              </li>
-              {email && (
-                <li className="font-semibold">
-                  <Link to="/myOrders">My Order</Link>
-                </li>
-              )}
-              {isAdmin && (
-                <li className="font-semibold">
-                  <Link to="/dashboard">Dashboard</Link>
-                </li>
-              )}
-              {isSeller && (
-                <li className="font-semibold">
-                  <Link to="/dashboard">Dashboard</Link>
-                </li>
-              )}
-              <li className="relative">
-                {!email && (
-                  <Link
-                    className="font-semibold uppercase block lg:hidden"
-                    to="/signIn"
-                  >
-                    Sign In
-                  </Link>
-                )}
-              </li>
-              <li>
-                {!email && (
-                  <Link
-                    className="font-semibold uppercase block lg:hidden"
-                    to="/signUP"
-                  >
-                    Sign Up
-                  </Link>
-                )}
-              </li>
-
-              <li className="">
-                {email && (
-                  <Link
-                    // onClick={logout}
-                    className="font-semibold uppercase block lg:hidden absolute bottom-0 border"
-                  >
-                    Sign Out
-                  </Link>
-                )}
-              </li>
-            </ul>
-          </div>
-
-          <Link to="/avatar" className="-ml-5 pt-3 hidden lg:block md:block">
-            <div className="avatar">
-              <div className="w-12 rounded-full ">
-                {email && <img src="" alt="" />}
-                {!email && (
-                  <IconContext.Provider value={{ size: 40 }}>
-                    <FaRegUserCircle />
-                  </IconContext.Provider>
-                )}
-              </div>
-            </div>
-          </Link>
-        </aside>
-      </div> */}
-
       <section className="bg-white shadow-sm font-Open text-black sticky top-0 z-50">
         <div>
           <div className="flex justify-between container mx-auto py-6 px-5 lg:px-0">
@@ -566,19 +439,23 @@ const Navbar = () => {
               </aside>
             </div>
             <aside className="flex items-center space-x-5">
-              <div className="hidden lg:block">
+              <div
+                onClick={() => {
+                  searchPageVisit();
+                }}
+                className="flex cursor-pointer"
+              >
                 <IconContext.Provider value={{ size: 23, color: "#ABADAF" }}>
                   <RiSearchLine />
                 </IconContext.Provider>
               </div>
+
               <Link to="/wishlist-page" className="relative cursor-pointer">
                 <IconContext.Provider value={{ size: 23, color: "#ABADAF" }}>
                   <RiHeart2Line />
                 </IconContext.Provider>
                 <aside className="absolute -top-2 -right-2 bg-[#2a355c99] w-4 h-4 rounded-full text-white flex items-center justify-center">
-                  <p className="text-[12px]">
-                    {wishlist ? wishlist.length : 0}
-                  </p>
+                  <p className="text-[12px]">{email ? wishlist.length : 0}</p>
                 </aside>
               </Link>
 

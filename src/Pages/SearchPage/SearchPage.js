@@ -1,23 +1,21 @@
-import React from "react";
-import { Dialog, Transition } from "@headlessui/react";
-import { Fragment, useState } from "react";
-import BestProductsCard from "./BestProductsCard";
+import React, { Fragment, useState } from "react";
+import ShopCard from "../Shop/ShopCard";
 import {
   useAddToCardPostMutation,
-  useGetBestProductsQuery,
+  useSearchProductsQuery,
 } from "../../Features/Products/ProductApi";
 import { useDispatch, useSelector } from "react-redux";
-import { AiOutlineMinus, AiOutlinePlus } from "react-icons/ai";
-import { BsArrowReturnRight, BsInfoCircle } from "react-icons/bs";
+import { useNavigate } from "react-router-dom";
+import { Dialog, Transition } from "@headlessui/react";
 import {
   addToCart,
   quantityDecrease,
   quantityIncrease,
   quantityZero,
 } from "../../Features/Auth/AuthSlice";
-import { useNavigate } from "react-router-dom";
+import { BsArrowReturnRight, BsInfoCircle } from "react-icons/bs";
+import { AiOutlineMinus, AiOutlinePlus } from "react-icons/ai";
 import { toast } from "react-hot-toast";
-
 const fakeList = [
   "Perfect for any Occasion",
   "Stylish and fashionable",
@@ -25,14 +23,9 @@ const fakeList = [
   "Comfortable to wear",
   "Size: M, L, XL",
 ];
-const BestSeller = () => {
-  const { modalData, cart, user } = useSelector((state) => state.Auth);
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
-  const { data } = useGetBestProductsQuery();
-  const [postAddToCart] = useAddToCardPostMutation();
+const SearchPage = () => {
+  const [inputText, setInputText] = useState("");
   let [isOpen, setIsOpen] = useState(false);
-
   function closeModal() {
     setIsOpen(false);
   }
@@ -42,17 +35,16 @@ const BestSeller = () => {
     setIsOpen(true);
   }
 
-  const goToCheckoutFunc = (id) => {
-    if (!user?.email) {
-      navigate("/signIn");
-      return;
-    }
-    if (modalData.quantity === 0) {
-      toast.error("Please Increase Your Product Quantity!");
-      return;
-    }
-    navigate(`/single-payments-page/${id}`);
-    closeModal();
+  const { modalData, cart, user } = useSelector((state) => state.Auth);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const { data } = useSearchProductsQuery(inputText);
+  const [postAddToCart] = useAddToCardPostMutation();
+  console.log(data?.data);
+  let resultData = data?.data;
+
+  const productDetails = (infoId) => {
+    navigate(`/categories-search/${infoId}`);
   };
 
   const addToCartList = ({
@@ -99,32 +91,50 @@ const BestSeller = () => {
     );
     dispatch(addToCart({ ...provideData }));
     closeModal();
+    toast.success(`Product Add Successful!`);
   };
 
-  const productDetails = (infoId) => {
-    navigate(`/categories-search/${infoId}`);
+  const goToCheckoutFunc = (id) => {
+    if (!user?.email) {
+      navigate("/signIn");
+      return;
+    }
+    if (modalData.quantity === 0) {
+      toast.error("Please Increase Your Product Quantity!");
+      return;
+    }
+    navigate(`/single-payments-page/${id}`);
+    closeModal();
   };
-
   return (
-    <>
-      <div className="py-28">
-        <div className="flex flex-col items-center justify-center">
-          <h1 className="text-[32px] mb-2 text-[#121212] capitalize font-semibold">
-            Best sellers
-          </h1>
-          <p className="text-[#797B7E] text-[18px] leading-6 capitalize">
-            Top sale in this week
-          </p>
+    <div>
+      <div className="container mx-auto">
+        <div class="mb-3">
+          <div class="relative mb-4 flex lg:flex-row-reverse flex-col justify-between items-center w-full mt-10 font-Poppins">
+            <input
+              onChange={(e) => {
+                setInputText(e.target.value);
+              }}
+              type="search"
+              class="relative lg:w-2/6 m-0 -mr-0.5 border border-solid border-neutral-300 bg-transparent bg-clip-padding px-3 py-[0.5rem] text-sm font-normal leading-[1.6] text-neutral-700 outline-none transition duration-200 ease-in-out focus:z-[3] focus:border-primary focus:text-neutral-700 focus:shadow-[inset_0_0_0_1px_rgb(59,113,202)] focus:outline-none dark:border-neutral-600 dark:text-neutral-200 dark:placeholder:text-neutral-200 dark:focus:border-primary rounded-full"
+              placeholder="Search Products . . ."
+            />
+
+            <h1 className="font-Poppins lg:text-2xl text-black mt-3 lg:mt-0">
+              Search Results : <span>{data ? data?.data?.length : 0}</span>
+            </h1>
+          </div>
         </div>
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-5 container lg:w-[60%] mx-auto py-10 px-3 lg:px-0">
-          {data?.data?.map((best, inx) => (
-            <BestProductsCard
+
+        <div className="grid grid-cols-2 lg:grid-cols-5 lg:gap-5 gap-3 container py-10 px-3 lg:px-0">
+          {resultData?.map((shop, inx) => (
+            <ShopCard
               key={inx}
-              best={best}
               openModal={openModal}
               closeModal={closeModal}
               isOpen={isOpen}
-            ></BestProductsCard>
+              shop={shop}
+            ></ShopCard>
           ))}
         </div>
       </div>
@@ -320,8 +330,8 @@ const BestSeller = () => {
           </div>
         </Dialog>
       </Transition>
-    </>
+    </div>
   );
 };
 
-export default BestSeller;
+export default SearchPage;

@@ -12,10 +12,7 @@ import { addToCartTwo, modalInfo } from "../../Features/Auth/AuthSlice";
 import { toast } from "react-hot-toast";
 import { useAddToCardPostMutation } from "../../Features/Products/ProductApi";
 import { useCreateWishlistMutation } from "../../Features/Wishlist/WishlistApi";
-import {
-  activeProduct,
-  addLocalWishlist,
-} from "../../Features/Wishlist/WishlistSlice";
+import { addLocalWishlist } from "../../Features/Wishlist/WishlistSlice";
 import { useNavigate } from "react-router-dom";
 import Loader from "../images/7YQl.gif";
 
@@ -45,6 +42,7 @@ const BestProductsCard = ({ best, openModal }) => {
       navigate("/signIn");
       return;
     }
+
     const provideData = {
       mainId: _id,
       title,
@@ -56,7 +54,7 @@ const BestProductsCard = ({ best, openModal }) => {
       status,
       quantity: 1,
     };
-    let findData = cart?.find((item) => item._id === _id);
+    let findData = cart?.find((item) => item.title === title);
     if (findData) {
       toast.error(`${findData.title} Already added in Cart List`);
       return;

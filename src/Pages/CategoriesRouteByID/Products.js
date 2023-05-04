@@ -52,7 +52,7 @@ const Products = ({ product, openModal, closeModal }) => {
       quantity: 1,
     };
     console.log(provideData);
-    let findData = cart?.find((item) => item._id === _id);
+    let findData = cart?.find((item) => item.title === title);
     if (findData) {
       toast.error(`${findData.title} Already added in Cart List`);
       return;

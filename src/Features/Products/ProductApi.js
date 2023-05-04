@@ -53,6 +53,12 @@ const ProductApi = APISlice.injectEndpoints({
         url: `/api/v1/orders/payment-products/${id}`,
       }),
     }),
+    SearchProducts: builder.query({
+      query: (searchText) => ({
+        method: "GET",
+        url: `/api/v1/products/all-products/search-products/${searchText}`,
+      }),
+    }),
     CartDataGetWithEmail: builder.query({
       query: (email) => ({
         method: "GET",
@@ -81,4 +87,5 @@ export const {
   useCartDataGetWithEmailQuery,
   useCartProductRemoveMutation,
   useOrderSuccessPaymentMutation,
+  useSearchProductsQuery,
 } = ProductApi;
