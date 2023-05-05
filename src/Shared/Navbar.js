@@ -455,7 +455,7 @@ const Navbar = () => {
                   <RiHeart2Line />
                 </IconContext.Provider>
                 <aside className="absolute -top-2 -right-2 bg-[#2a355c99] w-4 h-4 rounded-full text-white flex items-center justify-center">
-                  <p className="text-[12px]">{email ? wishlist.length : 0}</p>
+                  <p className="text-[12px]">{email ? wishlist?.length : 0}</p>
                 </aside>
               </Link>
 
@@ -467,7 +467,7 @@ const Navbar = () => {
                   <RiShoppingCartLine />
                 </IconContext.Provider>
                 <aside className="absolute -top-2 -right-2 bg-[#2a355c99] w-4 h-4 rounded-full text-white flex items-center justify-center">
-                  <p className="text-[12px]">{cart ? cart.length : 0}</p>
+                  <p className="text-[12px]">{cart ? cart?.length : 0}</p>
                 </aside>
               </Link>
               <div className="dropdown dropdown-end cursor-pointer">

@@ -109,14 +109,14 @@ const SearchPage = () => {
   return (
     <div>
       <div className="container mx-auto">
-        <div class="mb-3">
-          <div class="relative mb-4 flex lg:flex-row-reverse flex-col justify-between items-center w-full mt-10 font-Poppins">
+        <div className="mb-3">
+          <div className="relative mb-4 flex lg:flex-row-reverse flex-col justify-between items-center w-full mt-10 font-Poppins">
             <input
               onChange={(e) => {
                 setInputText(e.target.value);
               }}
               type="search"
-              class="relative lg:w-2/6 m-0 -mr-0.5 border border-solid border-neutral-300 bg-transparent bg-clip-padding px-3 py-[0.5rem] text-sm font-normal leading-[1.6] text-neutral-700 outline-none transition duration-200 ease-in-out focus:z-[3] focus:border-primary focus:text-neutral-700 focus:shadow-[inset_0_0_0_1px_rgb(59,113,202)] focus:outline-none dark:border-neutral-600 dark:text-neutral-200 dark:placeholder:text-neutral-200 dark:focus:border-primary rounded-full"
+              className="relative lg:w-2/6 m-0 -mr-0.5 border border-solid border-neutral-300 bg-transparent bg-clip-padding px-3 py-[0.5rem] text-sm font-normal leading-[1.6] text-neutral-700 outline-none transition duration-200 ease-in-out focus:z-[3] focus:border-primary focus:text-neutral-700 focus:shadow-[inset_0_0_0_1px_rgb(59,113,202)] focus:outline-none dark:border-neutral-600 dark:text-neutral-200 dark:placeholder:text-neutral-200 dark:focus:border-primary rounded-full"
               placeholder="Search Products . . ."
             />
 
